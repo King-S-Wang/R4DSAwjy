@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"NULL"}
+  {"type":"character","attributes":{},"value":["dateviz-makeover-1_files/anchor-4.2.2/anchor.min.js","dateviz-makeover-1_files/bowser-1.9.3/bowser.min.js","dateviz-makeover-1_files/distill-2.2.21/template.v2.js","dateviz-makeover-1_files/jquery-1.11.3/jquery.min.js","dateviz-makeover-1_files/popper-2.6.0/popper.min.js","dateviz-makeover-1_files/tippy-6.2.7/tippy-bundle.umd.min.js","dateviz-makeover-1_files/tippy-6.2.7/tippy-light-border.css","dateviz-makeover-1_files/tippy-6.2.7/tippy.css","dateviz-makeover-1_files/tippy-6.2.7/tippy.umd.min.js","dateviz-makeover-1_files/webcomponents-2.0.0/webcomponents.js","img/image01.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1477,9 +1477,62 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<p>Distill is a publication format for scientific and technical writing, native to the web.</p>
-<p>Learn more about using Distill at <a href="https://rstudio.github.io/distill" class="uri">https://rstudio.github.io/distill</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<h1 id="overview">1.0 Overview</h1>
+<p>In this article, we will show you how to plot a figure with multiple histograms by using <a href="https://ggplot2.tidyverse.org/"><strong>ggplot2</strong></a> and <strong>ggpubr</strong> packages.</p>
+<h1 id="installing-and-launching-r-packages">2.0 Installing and Launching R Packages</h1>
+<p>Before you get started, you are required:</p>
+<ul>
+<li>to start a new R project, and
+<ul>
+<li>to create a new R Markdown document.
+<ul>
+<li>to create a new R Markdown document.</li>
+</ul></li>
+</ul></li>
+<li>to create a new R Markdown document.</li>
+</ul>
+<p>Next, you will use the code chunk below to install and launch <strong>ggpubr</strong> and <strong>tidyverse</strong> in RStudio.</p>
+<p>Import a picture: <img src="img/image01.png" /></p>
+<h1 id="r-code">R code</h1>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<h1 id="importing-and-preparing-the-data-set">3.0 Importing and Preparing The Data Set</h1>
+<p>In this hands-on exercise, the <a href="https://archive.ics.uci.edu/ml/datasets/wine+quality">Wine Quality Data Set</a> of UCI Machine Learning Repository will be used. The data set consists of 13 variables and 6497 observations. For the purpose of this exercise, we have combined the red wine and white wine data into one data file. It is called wine_quality and is in csv file format.</p>
+<h2 id="importing-data">3.1 Importing Data</h2>
+<p>First, let us import the data into R by using read_csv() of readr package.</p>
+<h1 id="r-code-1">R code</h1>
+<pre><code>wine &lt;- read_csv(&quot;data/wine_quality.csv&quot;)</code></pre>
+<p>Notice that beside quality and type, the rest of the variables are numerical and continuous data type.</p>
+<h1 id="univariate-eda-with-histogram">4.0 Univariate EDA with Histogram</h1>
+<p>In the figure below, multiple histograms are plottted by using ggplot() and geom_histogram() of ggplot2 package. Then, ggarrange() of ggpubr package is used to patch these histogram into a single figure to reveal the distribution of the selected variables in the wine quality data sets.</p>
+<h1 id="rcode">Rcode</h1>
+<pre><code>fa &lt;- ggplot(data=wine, aes(x= `fixed acidity`)) +
+geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+va &lt;- ggplot(data=wine, aes(x= `volatile acidity`)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+ca &lt;- ggplot(data=wine, aes(x= `citric acid`)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+rs &lt;- ggplot(data=wine, aes(x= `residual sugar`)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+ch &lt;- ggplot(data=wine, aes(x= `chlorides`)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+fSO2 &lt;- ggplot(data=wine, aes(x= `free sulfur dioxide`)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+tSO2 &lt;- ggplot(data=wine, aes(x= `total sulfur dioxide`)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+density &lt;- ggplot(data=wine, aes(x= density)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+pH &lt;- ggplot(data=wine, aes(x= pH)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+sulphates &lt;- ggplot(data=wine, aes(x= sulphates)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+alcohol &lt;- ggplot(data=wine, aes(x= alcohol)) +
+  geom_histogram(bins=20, color=&quot;black&quot;, fill=&quot;light blue&quot;)
+
+ggarrange(fa, va, ca, rs, ch, fSO2, tSO2, density, pH, sulphates, alcohol, 
+          ncol = 4, nrow = 3)</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
