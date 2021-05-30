@@ -1,7 +1,7 @@
 ---
 title: "DateViz Makeover 1"
 description: |
-  A short description of the post.
+  Refine of "Merchandise Trade of Top Six Trading Countries,2019-2020"
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/
@@ -16,88 +16,182 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# 1.0 Overview
+# 1. Introduction
 
-In this article, we will show you how to plot a figure with multiple histograms by using [**ggplot2**](https://ggplot2.tidyverse.org/) and **ggpubr** packages. 
+![](img/image00.png)
+This post is part of the submission for ISSS608 DataViz Makeover assignment 1.This data visualisation is created by using data provided by Department of Statistics, Singapore (DOS). The data are available under the sub-section of [**Merchandise Trade by Region/Market**](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data).
+
+However, this post was not well organized. There are several problems with this data visualization. In the following passage, I will explain the aspects where the post could improve and show how I can visualize this data.
 
 
-# 2.0 Installing and Launching R Packages
+# 2. Critique and suggestion
 
-Before you get started, you are required:
+We were exposing that the correct type of presentation is essential in clarifying the information we need to convey. A good idea should guide the reader to the right conclusion as intended by the author. In addition, visual impairment is an essential role for the speaker and four to a joyful, positive experience concerning vision. It can be in the proper form and location, as well as reducing/eliminating dangerous “junk”.
 
-* to start a new R project, and
-    * to create a new R Markdown document.
-        * to create a new R Markdown document.
-* to create a new R Markdown document.
+![](img/image01.png)
+It's important for the post to be both clear and beautiful. However, the above post does not satisfied with those requirements.
 
-Next, you will use the code chunk below to install and launch **ggpubr** and **tidyverse** in RStudio.
+* **CLARITY**
 
-Import a picture:
-![](img/image01.gif)
+  * The Time Period is not consistent. Some countries are from 2019 to 2021, and some countries just show the year around 2020. 
+  
+  * The x-axis does not have enough scale. Readers could not tell which part is exactly the year, for example, 2019. It's not clear.
+  
+  * The y-axis of Import and y-axis of Export's unit of measurement are different. This will mislead readers to the wrong observations.
+  
+  * Using area to display leads to the chart quite a mess. Readers could not observe results directly.
+  
+* **BEAUTY**
 
-# R code 
-```{r}
-packages = c('ggpubr', 'tidyverse')
+  * The post ranks countries randomly. It's not beautiful.
+  
+  * The length of six counties' x-axis is not consistent.
+  
 
-for(p in packages){library
-  if(!require(p, character.only = T)){
-    install.packages(p)
-  }
-  library(p, character.only = T)
-}
+# 3 Alternative Graphical Representation
+Following pic shows the alternative graphical representation proposed for the makeover.
+
+![](img/image02.png)
+
+According to the original post of the visualization, the author intends to compare the six countries' import and export relationship between 2019 and 2020.
+
+So, I will correct the mistakes in the original post and choose line chart to visualize the data.
+
+
+
+
+# 4 Data preparation
+After downloading the data set(in .xlsx format) from the official site. I opened it with **Microsoft excel software**. This file has 3 sheet pages, Content Page, Import Page, Export Page. Take a look at Import Data and Export Data. There are some irrelevant columns(column 1~5 & columns after 127). So I selected them and deleted.
+![](img/image30.png)
+![](img/image31.png)
+
+Then I noticed that the date of Import Data is arranged horizontal. So I copied it and created a new sheet to paste with transform function.
+![](img/image32.png)
+![](img/image33.png)
+Since I only analysis the year from Jan 2019 to Dec 2020, I selected all time rows except the year between 2019 and 2020, and delete them.
+![](img/image34.png)
+Now your data table should look like this.
+![](img/image35.png)
+Good! The next step is to select all the countries except 6 countries in red color(America, Malaysia, Japan, HongKong, Taiwan, and Mainland China) and delete those countries as well.
+p.s. I use red color just to make it easier to distinguish, which means you don't have to do this.
+![](img/image36.png)
+now your data table should look like this.
+![](img/image37.png)
+I noticed that the unit of measurement of these counties are different. Except America, other countries are count in “Thousand Dollar”. So I calculated them in same format. You can use function to calculate and replace the original data.
+![](img/image38.png)
+you date should look like this.
+![](img/image39.png)
+Then, I duplicated the variable(time) column, stacked all countries data and added a new “country” column. After processing, the data should look like the following image’s format.
+![](img/image40.png)
+I did the same thing to the “T2” table(Export Data).
+![](img/image41.png)
+OK, finally I created a new sheet(Name:Total) and brought them(Import and Export data) together into the "Total". **Be noticed: match data with right countries**
+![](img/image42.png)
+Save the processed data.
+
+# 5 visualize data by Tableau
+## 5.1 Process date column
+Drag and import processed to Tableau. Noticed that I could not simply change "Time" column from character(string) type to date type. So I right click "Time column and choose "split" function.
+![](img/image03.png)
+After split time column you will get 2 new column, "Time - Split 1" shows the year, "Time - Split 2" shows the month. "Time - Split 1" is in number format, however, "Time - Split 2" is in character format which could not be simply changed to number format as well. So again, I right clicked "Time - Split 2" column and created a new calculate field. 
+![](img/image04.png)
+I used the following codes to change the month value into number format.
+```{}
+IF [Time - Split 2] =="Jan"
+    then 1
+ELSEIF [Time - Split 2]=="Feb"
+    then 2
+ELSEIF [Time - Split 2]=="Mar"
+    then 3
+ELSEIF [Time - Split 2]=="Apr"
+    then 4
+ELSEIF [Time - Split 2]=="May"
+    then 5
+ELSEIF [Time - Split 2]=="Jun"
+    then 6
+ELSEIF [Time - Split 2]=="Jul"
+    then 7
+ELSEIF [Time - Split 2]=="Aug"
+    then 8
+ELSEIF [Time - Split 2]=="Sep"
+    then 9
+ELSEIF [Time - Split 2]=="Oct"
+    then 10
+ELSEIF [Time - Split 2]=="Nov"
+    then 11
+ELSEIF [Time - Split 2]=="Dec"
+    then 12
+ELSE
+    0
+END
+```
+![](img/image05.png)
+Now I get 2 numeric column of year and month. What I need to do is trying to combine them together with calculate function,
+Right click any column and create a new calculate field(here I name it "Date") and use following codes to join month and year.
+```{}
+MAKEDATE([Time - Split 1],[Calculation1],1)
+```
+![](img/image06.png)
+
+## 5.2 Process Import & Export columns
+
+Currently, the import and export column was in character type. So, change Import & Export columns to "Number(decimal)" by right click the type icon on the left up corner.
+![](img/image07.png)
+
+## 5.3 Visualize date in worksheet
+Create a new worksheet. Drag Export & Import columns into rows and change them into continuous and measure by "Sum".
+![](img/image08.png)
+![](img/image09.png)
+Drag Date column twice into Columns and change one of them into month in continuous type.
+![](img/image10.png)
+Then you need to create two parameter value to separate countries horizontally. It could help chart much more clear and beautiful.
+![](img/image11.png)
+```{}
+Column:
+(INDEX()-1)%ROUND(SQRT(SIZE()))
+Row:
+INT((INDEX()-1)/ROUND(SQRT(SIZE())))
+```
+![](img/image12.png)
+Drag 2 Calculate field in Columns and Rows separately. Input Country value into "Detail".
+![](img/image13.png)
+Then change the value in "compute using" to "Country" 
+![](img/image14.png)
+Now your chart should lool like following pic.
+![](img/image15.png)
+Do like the next two images, drag Export column to the right side of the chart and let chart to be **dual axis**.
+![](img/image16.png)
+![](img/image17.png)
+Right click right side y-axis, choose "Synchronize dual axes" in "Edit axis...".
+![](img/image18.png)
+![](img/image19.png)
+Right click Country in "Detail" and choose "sort" from "Marks-All".
+![](img/image20.png)
+Sort By "Field". Sort Order "Descending". Field Name "Import". Aggregation "Sum".
+![](img/image21.png)
+Right click two side headers and cancel them. This will chart clearer.
+![](img/image22.png)
+Change "Tooltip" and let it much clearer.
+```{}
+Month of Date:	<MONTH(Date)>
+Country:<Country>
+Sum of Import(million):	<SUM(Import(million))>
+Sum of Export(Million):	<SUM(Export(Million))>
 ```
 
-# 3.0 Importing and Preparing The Data Set 
-
-In this hands-on exercise, the [Wine Quality Data Set](https://archive.ics.uci.edu/ml/datasets/wine+quality) of UCI Machine Learning Repository will be used.  The data set consists of 13 variables and 6497 observations.  For the purpose of this exercise, we have combined the red wine and white wine data into one data file.  It is called wine_quality and is in csv file format.  
-
-
-## 3.1 Importing Data
-
-First, let us import the data into R by using read_csv() of readr package.  
-
-
-# R code
-```
-wine <- read_csv("data/wine_quality.csv")
-```
-
-Notice that beside quality and type, the rest of the variables are numerical and continuous data type. 
-
-
-# 4.0 Univariate EDA with Histogram
-
-In the figure below, multiple histograms are plottted by using ggplot() and geom_histogram() of ggplot2 package.  Then, ggarrange() of ggpubr package is used to patch these histogram into a single figure to reveal the distribution of the selected variables in the wine quality data sets.  
-
-# Rcode
-```
-fa <- ggplot(data=wine, aes(x= `fixed acidity`)) +
-geom_histogram(bins=20, color="black", fill="light blue")
-va <- ggplot(data=wine, aes(x= `volatile acidity`)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-ca <- ggplot(data=wine, aes(x= `citric acid`)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-rs <- ggplot(data=wine, aes(x= `residual sugar`)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-ch <- ggplot(data=wine, aes(x= `chlorides`)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-fSO2 <- ggplot(data=wine, aes(x= `free sulfur dioxide`)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-tSO2 <- ggplot(data=wine, aes(x= `total sulfur dioxide`)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-density <- ggplot(data=wine, aes(x= density)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-pH <- ggplot(data=wine, aes(x= pH)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-sulphates <- ggplot(data=wine, aes(x= sulphates)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-alcohol <- ggplot(data=wine, aes(x= alcohol)) +
-  geom_histogram(bins=20, color="black", fill="light blue")
-
-ggarrange(fa, va, ca, rs, ch, fSO2, tSO2, density, pH, sulphates, alcohol, 
-          ncol = 4, nrow = 3)
-```
+Finally, add "Annotate" to show countries and change sheet name. Let readers much easier to observe the result.
+![](img/image23.png)
 
 
 
+# 6 Final Dashboard
+[**Link to Tableau Public**](https://public.tableau.com/app/profile/jiayi.wang5053/viz/Book1_16223712999290/MerchandiseTradeofTopSixTradingCountries2019-2020)
+![](img/image24.png)
 
+
+# 7 Insights
+* China has the highest import amount among six countries even larger than US. And China's trade amount is keep climbing with fluctuations. Although US's import amount ranking second place, its import amount is gradually going down under current trend.
+
+* The import values of China, US, Malaysia and Japan are quite close to those countries 's export values. Those countries' trades are balanced. However, Taiwan and Hong Kong's export value are relatively larger than their import value, which shows Taiwan and Hong Kong mostly do export trades.
+
+* China's export amount(including Taiwan and Hong Kong) are gradually going high. It might be facing overcapacity problems. This also show the economic condition in China  goes well. This trade trend might influence the Currency Exchange Rate in the furture.
