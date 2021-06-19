@@ -1,7 +1,7 @@
 ---
 title: "DataViz Makeover 2"
 description: |
-  A short description of the post.
+  Data Visualization: Merchandise trade performance with major trade partner, 2020
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/
