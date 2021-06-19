@@ -9,7 +9,7 @@ date: 05-30-2021
 output:
   distill::distill_article:
     self_contained: false
-    
+    toc: true
     
 ---
 
@@ -37,19 +37,21 @@ It's important for the post to be both clear and beautiful. However, the above p
 
 * **CLARITY**
 
-  * The Time Period is not consistent. Some countries are from 2019 to 2021, and some countries just show the year around 2020. 
-  
-  * The x-axis does not have enough scale. Readers could not tell which part is exactly the year, for example, 2019. It's not clear.
-  
-  * The y-axis of Import and y-axis of Export's unit of measurement are different. This will mislead readers to the wrong observations.
-  
+  * The Time Period is not consistent. Some countries are from 2019 to 2021, and some countries just show the year around 2020.
+
+  * The x-axis does not have enough scale. Readers could not tell which part is exactly the year, for example, 2019. It’s not clear.
+
+  * The y-axis of Import and y-axis of Export’s unit of measurement are different. This will mislead readers to the wrong observations.
+
   * Using area to display leads to the chart quite a mess. Readers could not observe results directly.
-  
+
 * **BEAUTY**
 
-  * The post ranks countries randomly. It's not beautiful.
-  
-  * The length of six counties' x-axis is not consistent.
+  * The post ranks countries randomly. It’s not beautiful.
+
+  * The length of six counties’ x-axis is not consistent.
+
+
   
 
 # 3 Alternative Graphical Representation
