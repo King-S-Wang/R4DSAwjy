@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["img/00.jpg","img/01.png","vast-challenge-2021_files/anchor-4.2.2/anchor.min.js","vast-challenge-2021_files/bowser-1.9.3/bowser.min.js","vast-challenge-2021_files/distill-2.2.21/template.v2.js","vast-challenge-2021_files/header-attrs-2.9/header-attrs.js","vast-challenge-2021_files/jquery-1.11.3/jquery.min.js","vast-challenge-2021_files/popper-2.6.0/popper.min.js","vast-challenge-2021_files/tippy-6.2.7/tippy-bundle.umd.min.js","vast-challenge-2021_files/tippy-6.2.7/tippy-light-border.css","vast-challenge-2021_files/tippy-6.2.7/tippy.css","vast-challenge-2021_files/tippy-6.2.7/tippy.umd.min.js","vast-challenge-2021_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["data2/car-assignments.csv","data2/cc_data.csv","data2/cc_data2.csv","data2/gps.csv","data2/loyalty_data.csv","data2/loyalty_data2.csv","img/00.jpg","img/01.png","img/02.png","img/03.png","vast-challenge-2021_files/anchor-4.2.2/anchor.min.js","vast-challenge-2021_files/bowser-1.9.3/bowser.min.js","vast-challenge-2021_files/distill-2.2.21/template.v2.js","vast-challenge-2021_files/header-attrs-2.9/header-attrs.js","vast-challenge-2021_files/jquery-1.11.3/jquery.min.js","vast-challenge-2021_files/popper-2.6.0/popper.min.js","vast-challenge-2021_files/tippy-6.2.7/tippy-bundle.umd.min.js","vast-challenge-2021_files/tippy-6.2.7/tippy-light-border.css","vast-challenge-2021_files/tippy-6.2.7/tippy.css","vast-challenge-2021_files/tippy-6.2.7/tippy.umd.min.js","vast-challenge-2021_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1478,7 +1478,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h1 id="vast-challenge-2021">VAST Challenge 2021</h1>
+<h1 id="vast-challenge-2021-overview">VAST Challenge 2021 Overview</h1>
 <p><img src="img/00.jpg" /> <a href="https://vast-challenge.github.io/2021/index.html"><strong>The 2021 IEEE VAST Challenge</strong></a> brings back a classic challenge to see how approaches and techniques have developed since its original release. This year’s challenge will be a variation on a previous year’s challenge, with modified data and new questions.</p>
 <p>The VAST Challenge is open to participation by individuals and teams in industry, government, and academia. We encourage your submissions and look forward to seeing your innovative visual analytics approaches.</p>
 <p>In order to handle this challenge, <a href="">our team</a> assigned 3 tasks to each member. In this article, I will explain the methods I used to figure out the reasonable results.</p>
@@ -1498,8 +1498,88 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <li><strong>Task 4</strong> Given the data sources provided, identify potential informal or unofficial relationships among GASTech personnel. Provide evidence for these relationships.</li>
 <li><strong>Task 5</strong> Do you see evidence of suspicious activity? Identify 1- 10 locations where you believe the suspicious activity is occurring, and why</li>
 </ul>
-<h2 id="data-official-site-provide">Data official site provide</h2>
-<p>There are</p>
+<h1 id="data-preparation">Data preparation</h1>
+<p>All data extraction and wrangling are done in R using the tidyverse suite of packages.</p>
+<h2 id="install-and-load-all-necessary-packages">Install and load all necessary packages</h2>
+<p>Besides the mentioned packages, the following packages are also loaded:</p>
+<ul>
+<li>DT: DT provides an R interface to the JavaScript library DataTables.</li>
+<li>sp: Provide classes and methods for spatial data; the classes document where the spatial location information resides, for 2D or 3D data.</li>
+<li>ggiraph:</li>
+<li>ggraph:</li>
+<li>plyr:</li>
+<li>sf:</li>
+<li>spdep:</li>
+<li>maptools:</li>
+<li>raster:</li>
+<li>tidyverse:</li>
+<li>spatstat:</li>
+<li>tmap:</li>
+<li>clock:</li>
+<li>rgdal:</li>
+<li>igraph:</li>
+<li>visNetwork:</li>
+<li>rgeos:</li>
+<li>lubridate:</li>
+<li>tidygraph:</li>
+</ul>
+<p>The code chunk below is used to install and load the packages.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>packages</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'DT'</span>,<span class='st'>'sp'</span>,<span class='st'>'ggiraph'</span>,<span class='st'>'ggraph'</span>,<span class='st'>'plyr'</span>,<span class='st'>'sf'</span>,<span class='st'>'spdep'</span>,<span class='st'>'maptools'</span>,
+           <span class='st'>'raster'</span>,<span class='st'>'tidyverse'</span>,<span class='st'>'spatstat'</span>,<span class='st'>'tmap'</span>,<span class='st'>'clock'</span>,<span class='st'>'rgdal'</span>,
+           <span class='st'>'igraph'</span>,<span class='st'>'visNetwork'</span>,<span class='st'>'rgeos'</span>,<span class='st'>'lubridate'</span>,<span class='st'>'tidygraph'</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>p</span> <span class='kw'>in</span> <span class='va'>packages</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='kw'>if</span><span class='op'>(</span><span class='op'>!</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'>p</span>,character.only<span class='op'>=</span><span class='cn'>T</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+  <span class='op'>}</span>
+  <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>p</span>,character.only <span class='op'>=</span> <span class='cn'>T</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+</div>
+<h2 id="data-provided">Data provided</h2>
+<p>There are several files that official VAST site provided. They are:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>File name</th>
+<th>content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>loyalty_data.csv</td>
+<td>The file containing loyalty card transaction data</td>
+</tr>
+<tr class="even">
+<td>cc_data.csv</td>
+<td>The file containing credit and debit card transaction data</td>
+</tr>
+<tr class="odd">
+<td>gps.csv</td>
+<td>Location tracking data of cars</td>
+</tr>
+<tr class="even">
+<td>car-assignments.csv</td>
+<td>A list of vehicle assignments by employee</td>
+</tr>
+<tr class="odd">
+<td>ESRI shapefiles</td>
+<td>Provide shapefiles of Abila and Kronos</td>
+</tr>
+<tr class="even">
+<td>MC2-Tourist.jpg</td>
+<td>A tourist map of Abila with locations of interest identified</td>
+</tr>
+</tbody>
+</table>
+<p><img src="img/02.png" style="width:50.0%" /> <img src="img/03.png" style="width:45.0%" /></p>
+<p>The left graph show the data structure of basic data files. I refined cc_data.csv, loyalty_data.csv, and created cc_data2.csv, loyalty_data2.csv. It show in the right graph. The original data could not be read by R properly for the special characters. After changing the name of “Katerina’s Cafe”, now R could read and output the result correctly.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

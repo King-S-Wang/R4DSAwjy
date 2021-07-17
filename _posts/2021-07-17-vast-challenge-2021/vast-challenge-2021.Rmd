@@ -16,7 +16,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# VAST Challenge 2021
+# VAST Challenge 2021 Overview
 
 ![](img/00.jpg)
 [**The 2021 IEEE VAST Challenge**](https://vast-challenge.github.io/2021/index.html) brings back a classic challenge to see how approaches and techniques have developed since its original release. This year’s challenge will be a variation on a previous year’s challenge, with modified data and new questions.
@@ -46,5 +46,61 @@ As a visual analytics expert assisting law enforcement, your mission is to ident
 * **Task 4** Given the data sources provided, identify potential informal or unofficial relationships among GASTech personnel. Provide evidence for these relationships.
 * **Task 5** Do you see evidence of suspicious activity? Identify 1- 10 locations where you believe the suspicious activity is occurring, and why
 
-## Data official site provide
-There are
+# Data preparation
+
+All data extraction and wrangling are done in R using the tidyverse suite of packages.
+
+## Install and load all necessary packages
+Besides the mentioned packages, the following packages are also loaded:
+
+* DT: DT provides an R interface to the JavaScript library DataTables.
+* sp: Provide classes and methods for spatial data; the classes document where the spatial location information resides, for 2D or 3D data.
+* ggiraph:
+* ggraph:
+* plyr:
+* sf:
+* spdep:
+* maptools:
+* raster:
+* tidyverse:
+* spatstat:
+* tmap:
+* clock:
+* rgdal:
+* igraph:
+* visNetwork:
+* rgeos:
+* lubridate:
+* tidygraph:
+
+The code chunk below is used to install and load the packages.
+
+```{r echo=TRUE, eval=TRUE}
+packages=c('DT','sp','ggiraph','ggraph','plyr','sf','spdep','maptools',
+           'raster','tidyverse','spatstat','tmap','clock','rgdal',
+           'igraph','visNetwork','rgeos','lubridate','tidygraph')
+for (p in packages){
+  if(!require(p,character.only=T)){
+    install.packages(p)
+  }
+  library(p,character.only = T)
+}
+```
+
+## Data provided
+There are several files that official VAST site provided. 
+They are:
+
+File name | content
+------------- | -------------
+loyalty_data.csv | The file containing loyalty card transaction data
+cc_data.csv | The file containing credit and debit card transaction data 
+gps.csv | Location tracking data of cars
+car-assignments.csv | A list of vehicle assignments by employee
+ESRI shapefiles | Provide shapefiles of Abila and Kronos
+MC2-Tourist.jpg | A tourist map of Abila with locations of interest identified
+![](img/02.png){width=50%} ![](img/03.png){width=45%}
+
+The left graph show the data structure of basic data files. I refined cc_data.csv, loyalty_data.csv, and created cc_data2.csv, loyalty_data2.csv. It show in the right graph. The original data could not be read by R properly for the special characters. After changing the name of "Katerina's Cafe", now R could read and output the result correctly.
+
+
