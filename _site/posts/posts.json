@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-07-17-vast-challenge-2021/",
+    "title": "VAST Challenge 2021",
+    "description": "The solution of the 2021 IEEE VAST Challenge, Mini Challenge 2",
+    "author": [
+      {
+        "name": "Jiayi Wang",
+        "url": "https://www.linkedin.com/in/jiayi-wang-smu/"
+      }
+    ],
+    "date": "2021-07-17",
+    "categories": [],
+    "contents": "\r\nVAST Challenge 2021\r\nThe 2021 IEEE VAST Challenge brings back a classic challenge to see how approaches and techniques have developed since its original release. This year’s challenge will be a variation on a previous year’s challenge, with modified data and new questions.\r\nThe VAST Challenge is open to participation by individuals and teams in industry, government, and academia. We encourage your submissions and look forward to seeing your innovative visual analytics approaches.\r\nIn order to handle this challenge, our team assigned 3 tasks to each member. In this article, I will explain the methods I used to figure out the reasonable results.\r\nMini-Challenge 2\r\nBackground\r\n\r\nMany of the Abila, Kronos-based employees of GAStech have company cars which are approved for both personal and business use. Those who do not have company cars have the ability to check out company trucks for business use, but these trucks cannot be used for personal business.\r\nEmployees with company cars are happy to have these vehicles, because the company cars are generally much higher quality than the cars they would be able to afford otherwise. However, GAStech does not trust their employees. Without the employees? knowledge, GAStech has installed geospatial tracking software in the company vehicles. The vehicles are tracked periodically as long as they are moving.\r\nThis vehicle tracking data has been made available to law enforcement to support their investigation. Unfortunately, data is not available for the day the GAStech employees went missing. Data is only available for the two weeks prior to the disappearance.\r\nTo promote local businesses, Kronos based companies provide a Kronos Kares benefit card to GASTech employees giving them discounts and rewards in exchange for collecting information about their credit card purchases and preferences as recorded on loyalty cards. This data has been made available to investigators in the hopes that it can help resolve the situation. However, Kronos Kares does not collect personal information beyond purchases.\r\nAs a visual analytics expert assisting law enforcement, your mission is to identify which GASTech employees made which purchases and identify suspicious patterns of behavior. You must cope with uncertainties that result from missing, conflicting, and imperfect data to make recommendations for further investigation.\r\nTasks and Questions\r\nTask 1 Using just the credit and loyalty card data, identify the most popular locations, and when they are popular. What anomalies do you see? What corrections would you recommend to correct these anomalies?\r\nTask 2 Add the vehicle data to your analysis of the credit and loyalty card data. How does your assessment of the anomalies in question 1 change based on this new data? What discrepancies between vehicle, credit, and loyalty card data do you find?\r\nTask 3 Can you infer the owners of each credit card and loyalty card? What is your evidence? Where are there uncertainties in your method? Where are there uncertainties in the data?\r\nTask 4 Given the data sources provided, identify potential informal or unofficial relationships among GASTech personnel. Provide evidence for these relationships.\r\nTask 5 Do you see evidence of suspicious activity? Identify 1- 10 locations where you believe the suspicious activity is occurring, and why\r\nData official site provide\r\nThere are\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-07-17T17:37:59+08:00",
+    "input_file": "vast-challenge-2021.knit.md"
+  },
+  {
     "path": "posts/2021-06-15-dataviz-makeover-2/",
     "title": "DataViz Makeover 2",
     "description": "Data Visualization: Merchandise trade performance with major trade partner, 2020",
