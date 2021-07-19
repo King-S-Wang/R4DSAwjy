@@ -146,7 +146,7 @@ glimpse(joined_data)
 First, let's take an overall look at the joined data set.
 This could give us a basic concept of the data content.
 
-```{r}
+```{r fig.show='hide'}
 ggplot(data=joined_data, 
        aes(x=timestamp, 
            fill = location)) +
