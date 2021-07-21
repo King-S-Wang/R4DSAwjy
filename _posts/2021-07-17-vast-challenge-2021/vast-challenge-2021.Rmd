@@ -9,6 +9,7 @@ date: 07-17-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
 ---
 
 
@@ -146,7 +147,7 @@ glimpse(joined_data)
 First, let's take an overall look at the joined data set.
 This could give us a basic concept of the data content.
 
-```{r fig.show='hide'}
+```{r}
 ggplot(data=joined_data, 
        aes(x=timestamp, 
            fill = location)) +
@@ -182,7 +183,7 @@ The analysis will be carried out in 2 ways:
 
 ### Analysis by weekdays
 
-I am using pipe-filter function to choose the locations with few records. Then I apply "ggplot()" to visualize the result by date and locations.
+I am using pipe-filter function to choose the locations with few records. Then I apply *ggplot()* to visualize the result by date and locations.
 
 ```{r fig.show='hide'}
 strange_joined_data=joined_data %>%
@@ -223,7 +224,7 @@ From the above graph, I divide them into 3 types:
 
 ### Analysis by hours
 
-I re-import cc_data and use pipe-filter function again to choose the locations with few records because I need to arrange data by hours. Then I apply "ggplot()" to visualize the result by date and locations. 
+I re-import cc_data and use pipe-filter function again to choose the locations with few records because I need to arrange data by hours. Then I apply *ggplot()* to visualize the result by date and locations. 
 
 ```{r}
 strange_joined_data=read_csv("data2/cc_data2.csv")
@@ -261,7 +262,7 @@ The analysis will be carried out in 2 ways:
 
 ### Analysis by weekdays
 
-This time, I use pipe-filter function but add "subset()" to choose the locations with more records. Then I apply the same "ggplot()" function to visualize the result by date and locations.
+This time, I use pipe-filter function but add *subset()* to choose the locations with more records. Then I apply the same *ggplot()* function to visualize the result by date and locations.
 
 ```{r fig.show='hide'}
 nstrange_joined_data = subset(joined_data,
@@ -329,15 +330,60 @@ ggplot(data=nstrange_joined_data,
 In this analysis, the hour information provides us much more evidence to convenience our previous findings in **Analysis by weekdays**. Like food shops mentioned in the last part, in this graph, the shops in red rectangles, like "Brew've Been Served", which only have records at around 7 o'clock, are like bread shops that only open in the morning workdays. The orange rectangle' shops are more likely restaurants which are only available in the noon. The locations in green rectangles have values both in noon and night. It could be cafes or entertainment places for the staff.
 Moreover, the blue rectangles are different from all previous ones. Blue rectangles most accelerate in the afternoon(around 1 pm). They also have a tiny number of records at night. From my point of view, I regard them as working place which GAStech employees need to visit for work because the time allocates at 1 pm which is the moment the staff back to work. Other locations don't have enough records for us to see the pattern. We could conduct analysis in the future if we get more information.
 
+## Conclusion
+By using credit and loyalty card data, the top 3 popular locations are "Katerina's Cafe", "Hippokampos" and "Guy's Gyros" which have quite several records around 12 pm and 7 pm. Depend on those patterns, and I suppose those shops are cafes/restaurants where GAStech employees would go there for lunch and supper. "Brew've Been Served" and "Hallowed Grounds", which only have records in the morning, are also popular shops. They might provide breakfast or sell bread to customers. And the records show that they sell pretty well.
+
+However, I also spot an anomaly. That there are 5 records at 3 am in "Kronos Mart". Personally speaking, it's strange for GAStech workers to visit there at midnight. Other records of "Kronos Mart" are more likely to happen around 8 o'clock. To fix this anomaly, I'd prefer to move records from 3 am to morning since there is no more information.
+
 # Task 2
 
-The "gps.csv" only provides us the latitude and longitude, which are difficult to use. Using QGIS software(will mention in Task 5), I could get the range of latitude and longitude about each shop from the graph. Then, we could use the loop function to assign location names to the records if they are within a specific GPS range.
+The "gps.csv" only provides us the latitude and longitude data, which means it could not tell us where the records happened in "gps.csv". The official site provided us Abila map and Abila geo shapefile. However, the graph does not have any geo information, which makes the analysis difficult to visualize. In order to solve this problem. By using QGIS software, I could create a tif file to combine the above 2 data together. Furthermore, the tif file could let us get any point's latitude and longitude from the graph. Then, we could use the loop function to assign records with location names if they are within a specific GPS range.
+
+## QGIS: Create tif file
+
+In this session, I will explain how I combine shapefile and map picture to get the tif file. I have already provided the tif file under Geospatial folder. You also could create on your own tif file with the help of this part.
+
+1. Open QGIS software and create a new file.
+
+![](img/11.png){width=100%}
+
+2. Select *Add Layer* in the submenu of *Layer* under the menu bar. Choose *Add Vector Layer*
+
+3. In the *Source*, choose **Abila.shp** file which locates under our Geospatial folder. Then, click *Add* and close the window when you successfully import data.
+
+![](img/12.png){width=100%}
+
+4. Then select *Georeferencer* in the submenu of *Raster* under the menu bar. Select the **MC2-tourist.jpg** which under the same Geospatial folder.
+
+![](img/13.png){width=100%}
+![](img/14.png){width=100%}
+
+5. You could see two windows here. The left is the data we import from Abila shapefile, and the right is the Abila map. To match their records, you need to find the same Geographical point from both windows. 
+
+Choose *Add point*, select that point from the map. Then click *From map canvas* to choose matched point in the left window. You could repeat this step several times(here, I use 6 points to match them) to let the output file more accurately.
+
+6. When you finish this repeat steps. Choose *Transformation Settings* and select the settings as showed in the right picture.
+
+![](img/15.png){width=55%} ![](img/16.png){width=40%}
+
+7. Finally, please run the *Start Georeferencing*. The tif will be created under the same folder(Here, Geospatial folder) when the process finishes. Now, you could close this and back to the main window. If you bring Abila layer to the front, you will see the two files have already matched pretty well.
+
+![](img/17.png){width=100%}
+![](img/18.png){width=100%}
+
+## Overview look
+
+With the help of QGIS, we can get latitude and longitude data from the map. In the meanwhile, we could find an anomaly here.
 
 ![](img/07.png){width=100%}
 
 Anomaly | Graph
 ------------- | -------------
 I found an **anomaly** here. While there are 34 kinds of shops from cc_data and loyalty_data, only 24 shops are showing on the official map, which means there are 10 kinds of records we could not find on the map. Nor could we assign "gps.csv" date with those places' location values. | ![](img/08.png){width=100%}
+
+In order to add the vehicle data to the analysis of the credit and loyalty card data, we need to allocate each record in "gps.csv" with relatively correct locations. However, this anomaly will make our allocation miss targets which do not show on the map(we could not tell the shop's range of latitude and longitude if it does not show in tif directly).
+
+So I tried to solve this problem. What I was thinking is trying to let cc_date to tell me the latitude and longitude of those shops because both cc_data and car gps data have **timestamp** which accurates to minutes. If I could merge them together, the output should provide me some useful hints. The loyalty_data only specific to days, thus I won't use loyalty_data here. 
 
 ```{r}
 not_show_data=c("Abila Zacharo",
@@ -360,6 +406,7 @@ anomaly_location=merge(anomaly_location,gps_temp,all.x=TRUE)
 anomaly_location=na.omit(anomaly_location)
 ```
 
+I use *boxplot()* to see my result. However, the output is not satisfactory for me. From the following graph, you could see that each location's GPS range varies greatly, which means there are overwhelming data from cc_data, which matches the gps data. So, I need to take a look at it to see what's going on.
 
 ```{r}
 ggplot(anomaly_location,
@@ -382,6 +429,14 @@ ggplot(anomaly_location,
 
 ```
 
+By **raster, sf, sp packages**, we could read tif file and visualize the data. In the following code, you can change names in *filter()* to see the distribution of different places(could remove the filter to see total records). After looking at those records, I found that except "Desafio Golf Course", there are still too many matched records for most locations or don't have obvious gathered clusters. Thus, we could modify "Desafio Golf Course"'s GPS information to the map.
+
+Besides that, I also found an **anomaly** in the visualization. Not like other records, the result id:28 plot on the map is discrete. While other records are more likely to be plotted to a line(continuous plot). I guess this happened in two way:
+
+* The GPS device on Car-id:28 was broken down. It could tell the accurate GPS to GAStech company.
+
+* The Car-id:28 might not be the same kind of car as others. It might be a motorcycle which is convenient to go to the place that standard vehicles couldn't.
+
 ```{r}
 ap=raster("Geospatial/MC2-tourist.tif")
 
@@ -398,9 +453,11 @@ anomaly_path=anomaly_sf %>%
               st_cast("POINT")
 anomaly_path_selected=anomaly_path %>%
   filter(location=="Desafio Golf Course")
+
 #"Abila Zacharo","Brewed Awakenings","Daily Dealz","Desafio Golf Course",
 #"Hippokampos","Kalami Kafenion","Kronos Pipe and Irrigation",
 #"Octavio's Office Supplies","Shoppers' Delight","Stewart and Sons Fabrication"
+
 tmap_mode("view")
 tm_shape(ap)+
   tm_rgb(ap,r=1,g=2,b=3,
@@ -416,44 +473,11 @@ tm_shape(ap)+
 
 ```
 
+Since the prediction of "Desafio Golf Course" could not be 100% sure. In the next codes, I would not use it to determine the location of gps data.
 
-```{r}
-#plot
-#p=ggplot(gps_guess, 
-#       aes(x=long_min,y=lat_max, 
-#           fill = location)) +
-#  geom_point()
-#q=ggplot(gps_guess, 
-#       aes(x=long_max,y=lat_min, 
-#           fill = location)) 
-#
-#p+  geom_point() +
-#  facet_wrap(~ location)
-```
-
-```{r}
-#p+  geom_point() +
-#  facet_wrap(~ location)
-```
-
-
-
-gps_location: 
-
-gps_temp$timestamp=date_time_parse(gps_temp$timestamp,
-                              zone = "",
-                              format="%m/%d/%Y %H:%M")
 ```{r eval=FALSE,echo=TRUE}
-gps=read_csv("gps.csv")
 gps_location=gps
-
-gps_location$timestamp=date_time_parse(gps_hm$timestamp,
-                              zone = "",
-                              format="%m/%d/%Y %H:%M")
-
-gps_hm$id=as_factor(gps_hm$id)
-glimpse(gps_hm)
-#The following line is just used for checking process step
+#The following one line is just used for checking process step
 #Because the "for" loop would take quite a while to run
 gps_location$location=1
 
@@ -539,9 +563,27 @@ for (n in 1:length(gps_location$timestamp)){
 > In order to save the running time, I have exported the above result as "gps_location.csv". You could just import "gps_location.csv" and use for following process.
 
 ```{r}
-gps_hm=read_csv("data2/gps_hm.csv")
-gps=read_csv("data2/gps.csv")
-glimpse(gps_hm)
+#gps_location$id=as_factor(gps_location$id)
+#glimpse(gps_location)
+```
+
+X NA
+timestamp location
+BY HOUR
+BY WEEK DAY
+visulization
+conclusion
+
+
+```{r}
+gps_location=read_csv("data2/gps_location.csv")
+gps_h=gps_location
+gps_h$timestamp=date_time_parse(gps_location$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H")
+#gps_h change gps_location$timestamp to hour format
+
+glimpse(gps_h)
 ```
 
 
@@ -561,12 +603,209 @@ glimpse(gps_hm)
 
 # Task 3
 
-```{r}
+To infer each credit card and loyalty card owner, there are 3 steps to do.
 
+## Create dictionary
+
+First, I created a dictionary to show their relation between credit card and loyalty card . Since R does not have an official dictionary function for us to use, and the dict package I tested is not good enough to use, I built a data frame to present the result.
+
+![](img/19.png)
+
+In the previous session, I have merged cc_data and loyalty_data to get the joined_data. Actually, if you look at joined_data, it has a linked credit card and loyalty card, which is exactly what we want. This data is accurate because it relates timestamp, location, and purchase price together. The **last4ccnum** column(credit card) and **loyaltynum** column(loyalty card) will tell us the relationships. However, there might be 3 kinds of problems we need to pay attention to when we write those relationships into our dictionary:
+
+* The owners just use either of credit card and loyalty card when purchase. Sometimes they use both cards again.
+
+* The owners have multiple credit cards or loyalty cards. Or the owners have relationships with each other, which leads to the one credit card might have multiply links with loyalty cards.
+
+In the following code chunk, I create an empty dictionary and 2 functions that could return the result if the new arrow data already has existed in the dictionary. The **pay_without_2card** column in the dictionary counts the times owners purchase with either of credit card or loyalty card. The **multipule_cards** present the times owners purchase with different pair relationships/links.
+
+```{r}
 ndt_in_last4=function(n){
   return(length(which(dictionary$card_num == joined_data[[4]][n]))>0)
 }     
 ndt_in_loyal=function(n){
   return(length(which(dictionary$loyalty_num == joined_data[[5]][n]))>0)
 }
+
+i=1
+dictionary=as.data.frame(array(,dim=c(0,4)))
+  
+names(dictionary)[names(dictionary) == 'V1'] = 'card_num'
+names(dictionary)[names(dictionary) == 'V2'] = 'loyalty_num'
+names(dictionary)[names(dictionary) == 'V3'] = 'pay_without_2card'
+names(dictionary)[names(dictionary) == 'V4'] = 'multipule_cards'
 ```
+
+First, I scan joined_data with each arrow.
+The flag will tell us which kind of new data arrow it is.
+1. flag=1: new arrow data only have value in last4ccnum column(credit card)
+2. flag=2: new arrow data only have value in loyaltynum column(loyalty card)
+3. flag=3: new arrow data have both values in last4ccnum and loyaltynum column
+
+Logic: 
+If new arrow's flag=1 or 2 and new arrow's value does not exist in the current dictionary, it will search the entire joined_data to find matching pair which have value both in last4ccnum and loyaltynum. If find that relationship, program will register this new link to dictionary and record current new arrow as pay_without_2card. On the contrary, it will register as empty pair in the dictionary.
+If new arrow's flag=1 or 2 and new arrow's value exists in the current dictionary, it will calculate the number of relation links. And add to each relation's pay_without_2card.
+If flag=3 and new arrow's pair does not exist in the current dictionary, it will register this new pair to dictionary. If new arrow's pair exists in the current dictionary, program will pass because dictionary has registed the same relation.
+If flag=3 and new arrow's pair exist in the current dictionary, it will register this new pair to dictionary.
+
+![](img/20.png)
+
+```{r}
+for (n in 1:length(joined_data$timestamp)){
+  #joined_data flag
+  {
+    if((is.na(joined_data[[4]][n]) | is.na(joined_data[[5]][n]))==FALSE)
+      flag=3  #no NA
+    else if(is.na(joined_data[[4]][n]))
+      flag=2  #NA in card_num
+    else if(is.na(joined_data[[5]][n]))
+      flag=1  #NA in loya_num
+    else{
+      print("Error:Both columns empty.")
+      break}
+  }
+  
+  #flag1
+  {
+    if(flag==1) #NA in loya_num
+      if(ndt_in_last4(n)) {
+        #exist in dictionary
+        index=which(dictionary$card_num == joined_data[[4]][n])[1]
+        #if(is.na(joined_data[[5]][index])==FALSE)
+        #NA=false
+        dictionary$pay_without_2card[index] =as.numeric(dictionary$pay_without_2card[index])+1
+      }
+    else{   #not exist in dictionary
+      for(variable in which(joined_data$last4ccnum == joined_data$last4ccnum[n])) {
+        if(is.na(joined_data$loyaltynum[variable])) 
+          next
+        else {
+          dictionary[i,]=c(joined_data[[4]][variable],joined_data[[5]][variable],1,0)
+          i=i+1 
+          break}
+      }
+      if(ndt_in_last4(n)==FALSE){
+        dictionary[i,]=c(joined_data[[4]][n],joined_data[[5]][n],0,0)
+        i=i+1 
+      }
+    }
+  }
+  #flag2
+  {
+    if(flag==2) #NA in card_num
+      if(ndt_in_loyal(n)) {
+        #exist in dictionary
+        index=which(dictionary$loyalty_num == joined_data[[5]][n])[1]
+        #if(is.na(joined_data[[4]][index])==FALSE)
+        #NA=false
+        dictionary$pay_without_2card[index] =as.numeric(dictionary$pay_without_2card[index])+1
+      }
+    else{   #not exist in dictionary
+      for(variable in which(joined_data$loyaltynum == joined_data$loyaltynum[n])) {
+        if(is.na(joined_data$last4ccnum[variable])) 
+          next
+        else {
+          dictionary[i,]=c(joined_data[[4]][variable],joined_data[[5]][variable],0,0)
+          i=i+1 
+          break}
+      }
+      if(ndt_in_loyal(n)==FALSE){
+        dictionary[i,]=c(joined_data[[4]][n],joined_data[[5]][n],0,0)
+        i=i+1 
+      }
+    }  
+  }
+  #flag3
+  {
+    if(flag==3){ #no NA
+      if(ndt_in_loyal(n)|ndt_in_last4(n)){#exist in dictionary 1?2?
+        #only one in the column
+        if((ndt_in_last4(n)&(ndt_in_loyal(n)==FALSE))|(ndt_in_loyal(n)&(ndt_in_last4(n)==FALSE))){
+          dictionary[i,]=c(joined_data[[4]][n],joined_data[[5]][n],0,1)
+          i=i+1
+        }
+        #both of data in the column
+        if(ndt_in_loyal(n)&ndt_in_last4(n)){
+          #how many?
+          ind_length=length(which(dictionary$card_num == joined_data[[4]][n]))
+          ind_length1=length(which(dictionary$loyalty_num == joined_data[[5]][n]))
+          #index value which matches
+          index=which(dictionary$card_num == joined_data[[4]][n])
+          index1=which(dictionary$loyalty_num == joined_data[[5]][n])
+          for (x in index) {
+            for (y in index1) {
+              if(x==y){
+                temp=x
+              }
+            }
+          }
+          for (x in index) {
+            if(x!=temp)
+              dictionary$multipule_cards[x] =as.numeric(dictionary$multipule_cards[x])+1
+          }
+          for (y in index1) {
+            if(y!=temp)
+              dictionary$multipule_cards[y] =as.numeric(dictionary$multipule_cards[y])+1
+          }
+        }
+      }
+      else{   #not exist in dictionary
+        dictionary[i,]=c(joined_data[[4]][n],joined_data[[5]][n],0,0)
+        i=i+1
+      }
+    }
+  }
+}
+
+DT::datatable(dictionary[c('card_num','loyalty_num')])
+```
+
+
+## Create gps_h
+![](img/21.png)
+
+
+## Link 3 data
+
+![](img/22.png)
+
+![](img/23.png)
+
+
+
+## Conclusion 
+![](img/24.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
