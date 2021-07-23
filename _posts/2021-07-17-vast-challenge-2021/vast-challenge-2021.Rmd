@@ -124,24 +124,26 @@ loyalty_data$timestamp=date_time_parse(loyalty_data$timestamp,
                                        zone = "",
                                        format="%m/%d/%Y")
 cc_data_origin=read_csv("data2/cc_data2.csv")
-cc_data_origin$timestamp=date_time_parse(cc_data_origin$timestamp,
+cc_data_hm=cc_data_origin
+cc_data_hm$timestamp=date_time_parse(cc_data_hm$timestamp,
                                        zone = "",
                                        format="%m/%d/%Y %H:%M")
-cc_data=read_csv("data2/cc_data2.csv")
-cc_data$timestamp=date_time_parse(cc_data$timestamp,
+cc_data_mdy=cc_data_origin
+cc_data_mdy$timestamp=date_time_parse(cc_data_mdy$timestamp,
                                   zone = "",
                                   format="%m/%d/%Y")
 ```
 
-Here I import cc_data twice(cc_data_origin, cc_data) because the time formats of loyalty_data and cc_data are different. The loyalty_data's time data only provides month-day-year, while cc_data is more accurate to each second. Thus, I will read cc_data in two ways(1.Month-day-year format to match loyalty data; 2.Month-day-year hour: minute format to match GPS data in the following questions) for better analysis by *date_time_parse()* function.
+Here I import cc_data and change its format because the time formats of loyalty_data and cc_data are different. The loyalty_data's time data only provides month-day-year, while cc_data is more accurate to each second. Thus, I will read cc_data in two ways(1.Month-day-year format to match loyalty data; 2.Month-day-year hour: minute format to match GPS data in the following questions) for better analysis by *date_time_parse()* function.
 
 Next, I use *merge()* function to combine cc_data and loyalty_data together. *merge()* will automatically match the relative columns from two data.frames and links them into one data.frame if you don't specifically select the column's name. 
 Here, *merge()* will match **location**(the shop's name when purchase happened), **time**, **price**(the amount clients paid).
 
 ```{r}
-joined_data=merge(cc_data,loyalty_data,all=TRUE)
+joined_data=merge(cc_data_mdy,loyalty_data,all=TRUE)
 glimpse(joined_data)
 ```
+
 ## Overview look
 
 First, let's take an overall look at the joined data set.
@@ -331,7 +333,7 @@ In this analysis, the hour information provides us much more evidence to conveni
 Moreover, the blue rectangles are different from all previous ones. Blue rectangles most accelerate in the afternoon(around 1 pm). They also have a tiny number of records at night. From my point of view, I regard them as working place which GAStech employees need to visit for work because the time allocates at 1 pm which is the moment the staff back to work. Other locations don't have enough records for us to see the pattern. We could conduct analysis in the future if we get more information.
 
 ## Conclusion
-By using credit and loyalty card data, the top 3 popular locations are "Katerina's Cafe", "Hippokampos" and "Guy's Gyros" which have quite several records around 12 pm and 7 pm. Depend on those patterns, and I suppose those shops are cafes/restaurants where GAStech employees would go there for lunch and supper. "Brew've Been Served" and "Hallowed Grounds", which only have records in the morning, are also popular shops. They might provide breakfast or sell bread to customers. And the records show that they sell pretty well.
+By using credit and loyalty card data, the top 3 popular locations are "Katerina's Cafe", "Hippokampos" and "Guy's Gyros" which have quite several records around 12 pm and 7 pm alL the week. Depend on those patterns, and I suppose those shops are cafes/restaurants where GAStech employees would go there for lunch and supper. "Brew've Been Served" and "Hallowed Grounds", which only have records in the morning, are also popular shops among GAStech staff. Those two shops mainly provide breakfast or sell bread to customers who need to wake up to work in the morning for their records all happened in the workday(Monday to Friday). And the records also show that their products sell pretty well.
 
 However, I also spot an anomaly. That there are 5 records at 3 am in "Kronos Mart". Personally speaking, it's strange for GAStech workers to visit there at midnight. Other records of "Kronos Mart" are more likely to happen around 8 o'clock. To fix this anomaly, I'd prefer to move records from 3 am to morning since there is no more information.
 
@@ -391,8 +393,8 @@ not_show_data=c("Abila Zacharo",
         "Hippokampos","Kalami Kafenion","Kronos Pipe and Irrigation",
         "Octavio's Office Supplies","Shoppers' Delight",
         "Stewart and Sons Fabrication")
-anomaly_location=cc_data_origin%>%
-  filter(cc_data_origin$location %in% not_show_data)
+anomaly_location=cc_data_hm%>%
+  filter(cc_data_hm$location %in% not_show_data)
 anomaly_location=anomaly_location[c("timestamp","location")]
 #Basic setting for gps
 gps=read_csv("data2/gps.csv")
@@ -439,10 +441,12 @@ Besides that, I also found an **anomaly** in the visualization. Not like other r
 
 ```{r}
 ap=raster("Geospatial/MC2-tourist.tif")
-
 Ablia_st=st_read(dsn="Geospatial",layer="Abila")
+```
+
+```{r}
+#Code Chunk A
 anomaly_location$id=as_factor(anomaly_location$id)
-glimpse(anomaly_location)
 anomaly_sf=st_as_sf(anomaly_location,
                 coords = c("long","lat"),
                 crs=4326)
@@ -467,9 +471,6 @@ tm_shape(ap)+
          max.value=255)+
   tm_shape(anomaly_path_selected)+
   tm_dots()
-#+tm_lines()
-
-
 
 ```
 
@@ -560,46 +561,108 @@ for (n in 1:length(gps_location$timestamp)){
 }
 
 ```
+
 > In order to save the running time, I have exported the above result as "gps_location.csv". You could just import "gps_location.csv" and use for following process.
+
+```{r}
+gps_location=read_csv("data2/gps_location.csv")
+glimpse(gps_location)
+```
+
+We could notice there are many NA values whose GPS ranges are not within what we specified. And there are also many duplication records in timestamp because the GPS data is registered in seconds. Thus, I will *use na.omit()* to remove all NA values from gps_location and store the output as gps_popular. Then, change gps_popular's timestamp by hours because it's more reasonable for each record counts by hours per id. Otherwise, if one GAStech worker stays in a location for several minutes, counting by minutes will lead to dozes of records. Counting by day will lead to missing valuable data for analysis.
+
+```{r}
+gps_popular=gps_location
+gps_popular=na.omit(gps_popular)
+
+gps_popular_d=gps_popular
+gps_popular$timestamp=date_time_parse(gps_popular$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H")
+
+gps_popular=gps_popular %>%
+  distinct(timestamp,id,location, .keep_all = T)
+gps_popular=gps_popular[c('timestamp','location')]
+
+glimpse(gps_popular)
+gps_popular_h=gps_popular
+gps_popular_h$timestamp=hour(gps_popular$timestamp)
+gps_popular_d$timestamp=date_time_parse(gps_popular_d$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y")
+gps_popular_d=gps_popular_d %>%
+  distinct(timestamp,id,location, .keep_all = T)
+gps_popular_d=gps_popular_d[c('timestamp','location')]
+```
+
+Although there are some locations, we could not perform analysis here since we don't know their locations on the map, like "Hippokampos". The majority of charts in the following graph still consist of the visualization from previous sections, like "Brew've Been Served" and "Katerina's Cafe" are also popular among purchase records. 
+
+However, the "Ouzeri Elian"'s value is unusually high this time. If you have tried the above "Code Chunk A", you will find the hints of the answer. There are two aspects. First, the range of "Ouzeri Elian" is more significant than others because it is the only location in that area, and its icon is large on the map. Second, there might be other shops under "Ouzeri Elian" area which do not show on the map. The previous visualization shows that several kinds of plots overlap within "Ouzeri Elian" area in Code Chunk A, which has quite a lot of GPS records, like "Hippokampos".
+
+Same as the previous analysis, we will provide analysis GPS data by hours and day as well.
+
+```{r}
+ggplot(data=gps_popular, 
+       aes(x=reorder(location,location,
+                     function(x)-length(x)))) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  geom_bar(fill = "grey", alpha = 1)+
+  
+  geom_text(stat="count", 
+            aes(label=paste0(..count..)),
+            vjust=-1) +
+  ylab("No. of\n records") +
+  theme(axis.title.y=element_text(angle = 0))
+```
+
+## Analysis by weekdays
+
+```{r fig.show='hide'}
+ggplot(data=gps_popular_d, 
+       aes(x=timestamp, 
+           fill = location)) +
+  geom_histogram(bins=14, 
+                 color="grey30")+
+  facet_wrap(~ location)
+
+```
+
+![](img/25.png)
+
+From the graph in weekly view, the GPS records patterns under most locations are similar to the previous visualization. For example, those locations in green rectangles are consistent with joined_data records graph. However, there appear some GPS records on weekends with "Brew've Been Served", "Coffee Cameleon" and "Hallowed Grounds" which should just open on workdays. You could see the anomalies in those red rectangles. This might cause occasion, and if users just drive past those locations, it will be captured as one record in gps.csv. You could not ask nobody to appear in those locations when those shops have not opened. If we treat those data in red rectangles as noise and exclude them, that the results are just the same as in the previous session.
+
+## Analysis by hours
+
+```{r fig.show= 'hide'}
+ggplot(data=gps_popular_h, 
+       aes(x=timestamp, 
+           fill = location)) +
+  geom_histogram(bins=14, 
+                 color="grey30")+
+  facet_wrap(~ location)+
+  scale_x_continuous(breaks = round(seq(min(gps_popular_h$timestamp), max(gps_popular_h$timestamp), by = 2),1))
+```
+
+![](img/26.png)
+
+Take relatively popular locations from the graph, and we could find that "Katerina's Cafe" and "Guy's Gyros"'s GPS records patterns similar to the previous visualization. And "Brew've Been Served" and "Hallowed Grounds" which only open in the morning, have abnormal noise data(in orange rectangles) both in the noon and night. Especially in "Brew've Been Served"'s chart. This result might be caused by "Katerina's Cafe" and "Guy's Gyros".
+
+From the map, you could see that "Brew've Been Served" locates next to "Katerina's Cafe" and "Guy's Gyros", which are extremely popular at noon and night. Thus, those customers who are going to "Katerina's Cafe" and "Guy's Gyros" might drive past "Brew've Been Served" would bring records to "Brew've Been Served" for just driving across it.
+
+The "Ouzeri Elian" has explained in the above part. Because we could not convince whether "Hippokampos", which are popular like "Katerina's Cafe", locates within the same area under "Ouzeri Elian", this high value in green rectangles might combine data from "Hippokampos".
+
+## conclusion
+
+After adding the vehicle data to the credit and loyalty card data analysis, we could confirm our findings from Task 1 are correct. The visualization of Task 2 provides us much more evidence about popular locations.
+
+Furthermore, we could update the assessment of the anomalies in question 1 based on GPS data. In Task 1, we found the anomaly; there are 5 records at 3 am in "Kronos Mart". However, in the above graph, there has **0 GPS record** in "Kronos Mart" before 10 o'clock. Most GPS records happen after 10 am. If "Kronos Mart" does is a shop mart, it is hard to imagine a mart would open at 3 am, and someone would go to a mart at midnight to purchase without driving a car. This reasonable doubt makes me more confident to believe this anomaly record has an issue with time. To fix this anomaly, I'd prefer to move records to another time. 
+
+Compared with credit, and loyalty card data, vehicle data, which I called GPS data, are registered much more detailed. In the time column, vehicle data is accurate for each second. And this also caused a lot of records to have duplication because the device sampled the data in seconds. Credit data is accurate to minutes, and loyalty card data is just accurate to days. We need to pay attention when merging them together.
 
 ```{r}
 #gps_location$id=as_factor(gps_location$id)
 #glimpse(gps_location)
 ```
-
-X NA
-timestamp location
-BY HOUR
-BY WEEK DAY
-visulization
-conclusion
-
-
-```{r}
-gps_location=read_csv("data2/gps_location.csv")
-gps_h=gps_location
-gps_h$timestamp=date_time_parse(gps_location$timestamp,
-                              zone = "",
-                              format="%m/%d/%Y %H")
-#gps_h change gps_location$timestamp to hour format
-
-glimpse(gps_h)
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Task 3
 
@@ -636,16 +699,23 @@ names(dictionary)[names(dictionary) == 'V3'] = 'pay_without_2card'
 names(dictionary)[names(dictionary) == 'V4'] = 'multipule_cards'
 ```
 
+## Logic to refine data
+
 First, I scan joined_data with each arrow.
 The flag will tell us which kind of new data arrow it is.
+
 1. flag=1: new arrow data only have value in last4ccnum column(credit card)
+
 2. flag=2: new arrow data only have value in loyaltynum column(loyalty card)
+
 3. flag=3: new arrow data have both values in last4ccnum and loyaltynum column
 
-Logic: 
 If new arrow's flag=1 or 2 and new arrow's value does not exist in the current dictionary, it will search the entire joined_data to find matching pair which have value both in last4ccnum and loyaltynum. If find that relationship, program will register this new link to dictionary and record current new arrow as pay_without_2card. On the contrary, it will register as empty pair in the dictionary.
+
 If new arrow's flag=1 or 2 and new arrow's value exists in the current dictionary, it will calculate the number of relation links. And add to each relation's pay_without_2card.
+
 If flag=3 and new arrow's pair does not exist in the current dictionary, it will register this new pair to dictionary. If new arrow's pair exists in the current dictionary, program will pass because dictionary has registed the same relation.
+
 If flag=3 and new arrow's pair exist in the current dictionary, it will register this new pair to dictionary.
 
 ![](img/20.png)
@@ -760,24 +830,82 @@ for (n in 1:length(joined_data$timestamp)){
 DT::datatable(dictionary[c('card_num','loyalty_num')])
 ```
 
-
 ## Create gps_h
+
 ![](img/21.png)
 
+The *gps_h* links gps_location with cc_data by hours. It will provide all possible relationships between credit owner and car id.
 
-## Link 3 data
+The first step is changing cc_data and gps_location to hours format. Then, distinct the records by different values. Since gps_location's records are accurate to seconds, this process will decrease the duplication records and keep helpful information only. Next, combine those two data and calculate the gps_h by inner join function.
+
+```{r}
+gps_h=gps_location
+cc_data_h=cc_data_origin
+#gps_h change gps_location$timestamp to hour format
+gps_h$timestamp=date_time_parse(gps_location$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H")
+cc_data_h$timestamp=date_time_parse(cc_data_h$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H")
+gps_h=gps_h %>%
+  distinct(timestamp,id,location, .keep_all = T)
+cc_data_h=cc_data_h %>%
+  distinct(timestamp,last4ccnum,location, .keep_all = T)
+#inner join
+gps_h=merge(cc_data_h,gps_h,all=FALSE)
+gps_h=gps_h[c("timestamp","location","last4ccnum","id")]
+```
+
+
 
 ![](img/22.png)
 
+Next, we will particularly calculate the possibility of relationships between credit owner and car id by *count.duplicates()*. The **count** will tell us how many records of one card owner link with one car id. Thus, the greater **count** it is, the higher possibility that credit card user is the owner of that car. 
+
+```{r}
+count.duplicates <- function(DF){
+  x <- do.call('paste', c(DF, sep = '\r'))
+  ox <- order(x)
+  rl <- rle(x[ox])
+  cbind(DF[ox[cumsum(rl$lengths)],,drop=FALSE],count = rl$lengths)
+}
+```
+
+```{r}
+gps_h2=gps_h[c("last4ccnum","id")]
+gps_h2=count.duplicates(gps_h2)
+DT::datatable(gps_h2)
+```
+
+## Link 3 data
+
 ![](img/23.png)
 
+In the last step, after we have got gps_h2 and dictionary, now we could link car_assignment to the dictionary by gps_h2. Car_assignment could tell us the owner of the car. The output is card_owner. Its column, count, is the number of matched records. The larger it is, the higher possibility that the card owner is that person.
 
+```{r}
+car_assignm=read_csv("data2/car-assignments.csv")
+car_assignm=tidyr::unite(car_assignm, "Fullname", LastName, FirstName,sep = " ", remove = TRUE)
+names(car_assignm)[names(car_assignm) == 'CarID'] = 'id'
+names(gps_h2)[names(gps_h2) == 'last4ccnum'] = 'card_num'
+car_assignm=na.omit(car_assignm)
+card_owner=merge(gps_h2,car_assignm,all=FALSE)
+card_owner=merge(card_owner,dictionary,all=FALSE)
+card_owner=card_owner[c("Fullname","card_num","loyalty_num","count")]
+card_owner=card_owner[order(card_owner$Fullname,-card_owner$count),]
+DT::datatable(card_owner)
+```
 
 ## Conclusion 
+
 ![](img/24.png)
 
+Can you infer the owners of each credit card and loyalty card? What is your evidence? Where are there uncertainties in your method? Where are there uncertainties in the data?
 
-
+mutiple owner
+gps deplication
+id 1-35
 
 
 
