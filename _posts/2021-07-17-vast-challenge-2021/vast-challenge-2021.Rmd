@@ -54,7 +54,8 @@ As a visual analytics expert assisting law enforcement, your mission is to ident
 
 # Basic preparation
 
-All data extraction and wrangling are done in R using the tidyverse suite of packages.
+## Literature review
+In this project, all data extraction and wrangling are done in R using the tidyverse suite of packages. Basing on several data files the official site provided, I will use different functions, like *link()*, *merge()* and formulas coded by myself, to visualize data and find the invisible information under the numbers. 
 
 ## Install and load all necessary packages
 Besides the mentioned packages, the following packages are also loaded:
