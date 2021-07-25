@@ -50,7 +50,7 @@ As a visual analytics expert assisting law enforcement, your mission is to ident
 * **Task 2** Add the vehicle data to your analysis of the credit and loyalty card data. How does your assessment of the anomalies in question 1 change based on this new data? What discrepancies between vehicle, credit, and loyalty card data do you find?
 * **Task 3** Can you infer the owners of each credit card and loyalty card? What is your evidence? Where are there uncertainties in your method? Where are there uncertainties in the data?
 * **Task 4** Given the data sources provided, identify potential informal or unofficial relationships among GASTech personnel. Provide evidence for these relationships.
-* **Task 5** Do you see evidence of suspicious activity? Identify 1- 10 locations where you believe the suspicious activity is occurring, and why
+* **Task 5** Do you see evidence of suspicious activity? Identify 1- 10 locations where you believe the suspicious activity is occurring, and why?
 
 # Basic preparation
 
@@ -362,13 +362,13 @@ In this session, I will explain how I combine shapefile and map picture to get t
 
 5. You could see two windows here. The left is the data we import from Abila shapefile, and the right is the Abila map. To match their records, you need to find the same Geographical point from both windows. 
 
-Choose *Add point*, select that point from the map. Then click *From map canvas* to choose matched point in the left window. You could repeat this step several times(here, I use 6 points to match them) to let the output file more accurately.
+6. Choose *Add point*, select that point from the map. Then click *From map canvas* to choose matched point in the left window. You could repeat this step several times(here, I use 6 points to match them) to let the output file more accurately.
 
-6. When you finish this repeat steps. Choose *Transformation Settings* and select the settings as showed in the right picture.
+7. When you finish this repeat steps. Choose *Transformation Settings* and select the settings as showed in the right picture.
 
 ![](img/15.png){width=55%} ![](img/16.png){width=40%}
 
-7. Finally, please run the *Start Georeferencing*. The tif will be created under the same folder(Here, Geospatial folder) when the process finishes. Now, you could close this and back to the main window. If you bring Abila layer to the front, you will see the two files have already matched pretty well.
+8. Finally, please run the *Start Georeferencing*. The tif will be created under the same folder(Here, Geospatial folder) when the process finishes. Now, you could close this and back to the main window. If you bring Abila layer to the front, you will see the two files have already matched pretty well.
 
 ![](img/17.png){width=100%}
 ![](img/18.png){width=100%}
@@ -704,11 +704,11 @@ names(dictionary)[names(dictionary) == 'V4'] = 'multipule_cards'
 First, I scan joined_data with each arrow.
 The flag will tell us which kind of new data arrow it is.
 
-1. flag=1: new arrow data only have value in last4ccnum column(credit card)
+* flag=1: new arrow data only have value in last4ccnum column(credit card)
 
-2. flag=2: new arrow data only have value in loyaltynum column(loyalty card)
+* flag=2: new arrow data only have value in loyaltynum column(loyalty card)
 
-3. flag=3: new arrow data have both values in last4ccnum and loyaltynum column
+* flag=3: new arrow data have both values in last4ccnum and loyaltynum column
 
 If new arrow's flag=1 or 2 and new arrow's value does not exist in the current dictionary, it will search the entire joined_data to find matching pair which have value both in last4ccnum and loyaltynum. If find that relationship, program will register this new link to dictionary and record current new arrow as pay_without_2card. On the contrary, it will register as empty pair in the dictionary.
 
@@ -827,12 +827,12 @@ for (n in 1:length(joined_data$timestamp)){
   }
 }
 
-DT::datatable(dictionary[c('card_num','loyalty_num')])
+DT::datatable(dictionary)#[c('card_num','loyalty_num')]
 ```
 
 ## Create gps_h
 
-![](img/21.png)
+![](img/21.png){width=60%}
 
 The *gps_h* links gps_location with cc_data by hours. It will provide all possible relationships between credit owner and car id.
 
@@ -859,7 +859,7 @@ gps_h=gps_h[c("timestamp","location","last4ccnum","id")]
 
 
 
-![](img/22.png)
+![](img/22.png){width=60%}
 
 Next, we will particularly calculate the possibility of relationships between credit owner and car id by *count.duplicates()*. The **count** will tell us how many records of one card owner link with one car id. Thus, the greater **count** it is, the higher possibility that credit card user is the owner of that car. 
 
@@ -880,7 +880,7 @@ DT::datatable(gps_h2)
 
 ## Link 3 data
 
-![](img/23.png)
+![](img/23.png){width=60%}
 
 In the last step, after we have got gps_h2 and dictionary, now we could link car_assignment to the dictionary by gps_h2. Car_assignment could tell us the owner of the car. The output is card_owner. Its column, count, is the number of matched records. The larger it is, the higher possibility that the card owner is that person.
 
@@ -901,36 +901,252 @@ DT::datatable(card_owner)
 
 ![](img/24.png)
 
-Can you infer the owners of each credit card and loyalty card? What is your evidence? Where are there uncertainties in your method? Where are there uncertainties in the data?
+The card_owner table is the result to infer the owners of each credit card and loyalty card. This result links GPS data, cc_data, loyalty_data, and car_assignment together by common attributes. You could see a variety of records in single card_owner, however you could infer the owner by **count** value. Those uncertainties in your method come from 3 aspects.
 
-mutiple owner
-gps deplication
-id 1-35
+1. In the dictionary, we could find multiply card owners who might have multiple credit cards or loyalty cars or share cards with others, like "1286" and "L3288". Those cards' records have relationships with other cards, which gives us uncertainties to predict the exact card owner.
+
+2. In the gps file, although we have refined records by hours, duplication records still exist if the car owner coincidentally stays in one location from *xx:59* to *xx+1:00*. The possibility is pretty low, however we need to pay attention to this condition.
+
+3. In car_assignment data, the official site only provides us car id from 1 to 35. On the contrary, the car id range in gps file is significantly larger than car_assignment. Not only from 1 to 35, but also from 35 to 107. Since the car_assignment only provides 35 car id, we could not predict other cards' owners.
+
+# Task 4
+
+In this chapter,given the data sources provided, I will identify potential informal or unofficial relationships among GASTech workers. To visualize the result, I would prefer to use *network graph*.
+
+If the workers have the same living patterns and drive to the same place simultaneously, I would suppose they have relationships. Thus, I would try to link car_assignment and gps_location together to find regulations.
+
+## Get nodes & edges
+
+The first step is to match GPS data with GPS data. This process would provide us all connections which one GASTech staff meet another staff at a specific location at the same time.
+
+Then, by the time they meet, I will use *hour()* to extract time period from each record. Morning: 6am ~ 10am. Noon: 11am ~ 12 pm. Afternoon: 1pm ~ 4pm. Night: 5pm ~ 5am.
+
+```{r}
+relation1=na.omit(gps_location)
+relation1$timestamp=date_time_parse(relation1$timestamp,
+                                       zone = "",
+                                       format="%m/%d/%Y %H")
+relation1=relation1 %>%
+  distinct(timestamp,id,location, .keep_all = T)
+relation1=relation1[c("timestamp","id","location")]
+relation2=relation1
+names(relation2)[names(relation2) == 'id'] = 'id2'
+relation2=merge(relation1,relation2,all.x=TRUE)
+relation2=relation2%>%
+  filter(relation2$id > relation2$id2)
+for(n in 1:length(relation2$id2)){
+  if(hour(relation2$timestamp[n])>=6 & hour(relation2$timestamp[n])<11)
+    relation2$timePeriod[n]='morning'
+  else if(hour(relation2$timestamp[n])>=11 & hour(relation2$timestamp[n])<13)
+    relation2$timePeriod[n]='noon'
+  else if(hour(relation2$timestamp[n])>=13 & hour(relation2$timestamp[n])<17)
+    relation2$timePeriod[n]='afternoon'
+  else
+    relation2$timePeriod[n]='night'
+}
+
+relation_mnn=relation2[c('id','id2','timePeriod')]
+relation_mnn=count.duplicates(relation_mnn)
+relation_wd=relation2[c('id','id2')]
+relation_wd=count.duplicates(relation_wd)
+
+relation_nodes=car_assignm[c("id","Fullname")]
+relation_nodes=na.omit(relation_nodes)
+relation_mnn=relation_mnn%>%
+  filter(id<36)%>%
+  filter(id2<36)
+relation_wd=relation_wd%>%
+  filter(id<36)%>%
+  filter(id2<36)
+car_assignm$id=as.factor(car_assignm$id)
+relation_mnn$id=as.factor(relation_mnn$id)
+relation_mnn$id2=as.factor(relation_mnn$id2)
+relation_wd$id=as.factor(relation_wd$id)
+relation_wd$id2=as.factor(relation_wd$id2)
+
+```
+
+## Create network graph
+
+```{r}
+GAStech_graph=tbl_graph(nodes=relation_nodes,
+                        edges=relation_wd,
+                        directed=TRUE)
+GAStech_graph
+
+g=GAStech_graph%>%
+  #mutate(betweenness_centrality=centrality_betweenness())%>%
+  ggraph(layout="fr")+
+  geom_edge_link(aes(width=count),
+                 alpha=0.2)+
+  scale_edge_width(range = c(0.1,5))+#link thickness
+  geom_node_point(aes(colour=Fullname,
+                      size=centrality_betweenness()))+
+  geom_node_text(aes(label = Fullname),vjust = 1.5,
+        hjust =0.3,size=3,color='red')
+g+theme_graph()
+```
+
+```{r}
+GAStech_graph=tbl_graph(nodes=relation_nodes,
+                        edges=relation_mnn,
+                        directed=TRUE)
+GAStech_graph
 
 
 
+set_graph_style()
+g=GAStech_graph%>%
+  mutate(betweenness_centrality=centrality_betweenness())%>%
+  ggraph(layout="fr")+
+  geom_edge_link(aes(width=count),
+                 alpha=0.2)+
+  scale_edge_width(range = c(0.1,5))+#link thickness
+  geom_node_point(aes(colour=Fullname,
+                      size=betweenness_centrality))+
+  geom_node_text(aes(label = Fullname),vjust = 1.5,
+        hjust =0.3,size=3,color='red')
+g+facet_edges(~timePeriod)
+
+```
+
+## Conclusion
+
+![](img/27.png)
+
+From the network graph, we could see the relationships among GASTech workers. If the line between 2 points is wider, it shows the observation that these 2 persons have closer relationships than others because these two workers have more consistent live routines.
+
+Take the night's chart as an example, Orila Kare, Onda Marin, and Cazar Gustav might have a strong relationship with each other since the width of edges is pretty broad. And this also happens between Calzas Axel and Campo-Corrente Ada. Thus, you could see all relationships between GASTech workers depend on the width of edges.
+
+# Task 5
+
+I will use the map visualization function to see suspicious activity, which has been mentioned in Code Chunk A.
+
+```{r}
+gps_t5=gps
+gps_t5$timestamp=date_time_parse(gps_t5$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H:%M:%S")
+gps_t5$id=as_factor(gps$id)
+gps_t5=gps_t5 %>%
+  filter(hour(timestamp)>=6)%>%
+  filter(hour(timestamp)<11)%>%
+  filter(day(timestamp)>=6)%>%
+  filter(day(timestamp)<11)
+gps_t5_sf=st_as_sf(gps_t5,
+                coords = c("long","lat"),
+                crs=4326)
+
+gps_t5_path=gps_t5_sf %>%
+  group_by(id) %>%
+  summarize(m=mean(timestamp),
+            do_union=FALSE) %>%
+              st_cast("LINESTRING")
 
 
+gps_t5_path_selected=gps_t5_path %>%
+  filter(id==2)
+
+tmap_mode("view")
+tm_shape(ap)+
+  tm_rgb(ap,r=1,g=2,b=3,
+         alpha=NA,
+         saturation=1,
+         interpolate=TRUE,
+         max.value=255)+
+  tm_shape(gps_t5_path_selected)+
+  #tm_dots(size = 0.01)
+  tm_lines()
+
+```
+
+## Staff habits
+
+By changing hours and car id in the codes, we could find useful patterns:
+
+1. Between 6am and 10am in all workdays. Besides staying in homes and the company, employees usually appear in the cafeteria. It indicates that they often eat breakfast or buy the food on the way to the company.
+
+2. All the cars during the period between 4pm and 6pm in all working days. Instead of stopping by the restaurants for dinner, employees usually drive back home directly.
+
+3. GAStech workers rarely have activities during the nights from Monday to Friday.
+
+## Conclusion & Anomalies
+
+1. By filtering the records during the early morning (2am to 4am), I find some anomalies during this special time. Car id: 4, 10, 35, 32, 16, and 21 arrived to place Car id: 16's home at 03:30, Jan 11, 2014. Car id: 21 and 24 arrived to place car id: 17's home at 03:40, Jan 9, 2014.
+
+```{r}
+gps_t5=gps
+gps_t5$timestamp=date_time_parse(gps_t5$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H:%M:%S")
+gps_t5$id=as_factor(gps$id)
+gps_t5=gps_t5 %>%
+  filter(hour(timestamp)>=2)%>%
+  filter(hour(timestamp)<5)
+gps_t5_sf=st_as_sf(gps_t5,
+                coords = c("long","lat"),
+                crs=4326)
+
+gps_t5_path=gps_t5_sf %>%
+  group_by(id) %>%
+  summarize(m=mean(timestamp),
+            do_union=FALSE) %>%
+              st_cast("LINESTRING")
 
 
+gps_t5_path_selected=gps_t5_path %>%
+  filter(id %in% c(4,10,35,32,16,21))
+
+tmap_mode("view")
+tm_shape(ap)+
+  tm_rgb(ap,r=1,g=2,b=3,
+         alpha=NA,
+         saturation=1,
+         interpolate=TRUE,
+         max.value=255)+
+  tm_shape(gps_t5_path_selected)+
+  #tm_dots(size = 0.01)
+  tm_lines()
+
+```
+
+2. We find that destinations of workers are located in car id: 2’s home. By observing the time, they all happened at the night, Jan 10, 2014. The involved employees are: 19, 3, 11, 28, 26, 5, 8, 1 and so on. I guess that a party or some kind of meeting happened.
+
+```{r}
+gps_t5=gps
+gps_t5$timestamp=date_time_parse(gps_t5$timestamp,
+                              zone = "",
+                              format="%m/%d/%Y %H:%M:%S")
+gps_t5$id=as_factor(gps$id)
+gps_t5=gps_t5 %>%
+  filter(hour(timestamp)>=18)%>%
+  filter(hour(timestamp)<24)
+gps_t5_sf=st_as_sf(gps_t5,
+                coords = c("long","lat"),
+                crs=4326)
+
+gps_t5_path=gps_t5_sf %>%
+  group_by(id) %>%
+  summarize(m=mean(timestamp),
+            do_union=FALSE) %>%
+              st_cast("LINESTRING")
 
 
+gps_t5_path_selected=gps_t5_path %>%
+  filter(id %in% c(19, 3, 11, 26, 5, 8, 1))
 
+tmap_mode("view")
+tm_shape(ap)+
+  tm_rgb(ap,r=1,g=2,b=3,
+         alpha=NA,
+         saturation=1,
+         interpolate=TRUE,
+         max.value=255)+
+  tm_shape(gps_t5_path_selected)+
+  #tm_dots(size = 0.01)
+  tm_lines()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 

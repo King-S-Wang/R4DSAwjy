@@ -34,21 +34,9 @@ joined_data_gpsd=merge(loyalty_data2,gps_d,all=FALSE)
 joined_data_gpsd_group=joined_data_gpsd[c("loyaltynum","id")]
 joined_data_gpsd_group=count.duplicates(joined_data_gpsd_group)
 
-#gps-cc
-gps_hm2=gps_hm %>%
-  distinct(timestamp,location,id, .keep_all = T)
-CC_data2=cc_data_origin %>%
-  distinct(timestamp,location,last4ccnum, .keep_all = T)
-joined_data_gpshm=merge(cc_data2,gps_hm2,all=FALSE)
-joined_data_gpshm_group=joined_data_gpshm[c("last4ccnum","id")]
-joined_data_gpshm_group=count.duplicates(joined_data_gpshm_group)
+ 
 
-count.duplicates <- function(DF){
-  x <- do.call('paste', c(DF, sep = '\r'))
-  ox <- order(x)
-  rl <- rle(x[ox])
-  cbind(DF[ox[cumsum(rl$lengths)],,drop=FALSE],count = rl$lengths)
-}
+
 
 
 #clean-match
