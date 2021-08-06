@@ -1,5 +1,5 @@
 ---
-title: "VAST Challenge 2021"
+title: "R-VAST Challenge 2021"
 description: |
   The solution of the 2021 IEEE VAST Challenge, Mini Challenge 2
 author:

@@ -1,5 +1,5 @@
 ---
-title: "DataViz Makeover 1"
+title: "Tableau-Makeover 1"
 description: |
   Refine of "Merchandise Trade of Top Six Trading Countries,2019-2020"
 author:

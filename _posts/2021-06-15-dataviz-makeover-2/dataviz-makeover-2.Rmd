@@ -1,7 +1,7 @@
 ---
-title: "DataViz Makeover 2"
+title: "Tableau-Makeover 2"
 description: |
-  Data Visualization: Merchandise trade performance with major trade partner, 2020
+  Refine of "Merchandise trade performance with major trade partner, 2020"
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/

@@ -20,19 +20,19 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -52,7 +52,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
@@ -86,38 +86,38 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-<title>DataVis Makeover: Jiayi's World</title>
+<title>Jiayi Wang World: R-PUBG_StrategiesAnalysis</title>
 
-<meta property="description" itemprop="description" content="Welcome to Jiayi&#39;s blog. Let&#39;s try something interesting!"/>
+<meta property="description" itemprop="description" content="A short description of the post."/>
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2021-05-21"/>
-<meta property="article:created" itemprop="dateCreated" content="2021-05-21"/>
+<meta property="article:published" itemprop="datePublished" content="2021-08-06"/>
+<meta property="article:created" itemprop="dateCreated" content="2021-08-06"/>
 <meta name="article:author" content="Jiayi Wang"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-<meta property="og:title" content="DataVis Makeover: Jiayi&#39;s World"/>
+<meta property="og:title" content="Jiayi Wang World: R-PUBG_StrategiesAnalysis"/>
 <meta property="og:type" content="article"/>
-<meta property="og:description" content="Welcome to Jiayi&#39;s blog. Let&#39;s try something interesting!"/>
+<meta property="og:description" content="A short description of the post."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:site_name" content="DataVis Makeover"/>
+<meta property="og:site_name" content="Jiayi Wang World"/>
 
 <!--  https://dev.twitter.com/cards/types/summary -->
 <meta property="twitter:card" content="summary"/>
-<meta property="twitter:title" content="DataVis Makeover: Jiayi&#39;s World"/>
-<meta property="twitter:description" content="Welcome to Jiayi&#39;s blog. Let&#39;s try something interesting!"/>
+<meta property="twitter:title" content="Jiayi Wang World: R-PUBG_StrategiesAnalysis"/>
+<meta property="twitter:description" content="A short description of the post."/>
 
 <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Jiayi's World"]},{"type":"character","attributes":{},"value":["Welcome to Jiayi's blog. Let's try something interesting!"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url","affiliation","affiliation_url"]}},"value":[{"type":"character","attributes":{},"value":["Jiayi Wang"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/jiayi-wang-smu/"]},{"type":"character","attributes":{},"value":["My Github"]},{"type":"character","attributes":{},"value":["https://github.com/King-S-Wang"]}]}]},{"type":"character","attributes":{},"value":["05-21-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["R-PUBG_StrategiesAnalysis"]},{"type":"character","attributes":{},"value":["A short description of the post."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Jiayi Wang"]},{"type":"character","attributes":{},"value":["https://www.linkedin.com/in/jiayi-wang-smu/"]}]}]},{"type":"character","attributes":{},"value":["08-06-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["welcome_files/anchor-4.2.2/anchor.min.js","welcome_files/bowser-1.9.3/bowser.min.js","welcome_files/distill-2.2.21/template.v2.js","welcome_files/jquery-1.11.3/jquery.min.js","welcome_files/popper-2.6.0/popper.min.js","welcome_files/tippy-6.2.7/tippy-bundle.umd.min.js","welcome_files/tippy-6.2.7/tippy-light-border.css","welcome_files/tippy-6.2.7/tippy.css","welcome_files/tippy-6.2.7/tippy.umd.min.js","welcome_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"NULL"}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -2041,6 +2041,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
+  <script src="../../site_libs/header-attrs-2.9/header-attrs.js"></script>
   <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
@@ -2061,7 +2062,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Jiayi's World","description":"Welcome to Jiayi's blog. Let's try something interesting!","authors":[{"author":"Jiayi Wang","authorURL":"https://www.linkedin.com/in/jiayi-wang-smu/","affiliation":"My Github","affiliationURL":"https://github.com/King-S-Wang","orcidID":""}],"publishedDate":"2021-05-21T00:00:00.000+08:00","citationText":"Wang, 2021"}
+{"title":"R-PUBG_StrategiesAnalysis","description":"A short description of the post.","authors":[{"author":"Jiayi Wang","authorURL":"https://www.linkedin.com/in/jiayi-wang-smu/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-08-06T00:00:00.000+08:00","citationText":"Wang, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2069,7 +2070,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <header class="header header--fixed" role="banner">
 <nav class="distill-site-nav distill-site-header">
 <div class="nav-left">
-<a href="../../index.html" class="title">DataVis Makeover</a>
+<a href="../../index.html" class="title">Jiayi Wang World</a>
 <input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
 </div>
 <div class="nav-right">
@@ -2084,20 +2085,50 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Jiayi’s World</h1>
+<h1>R-PUBG_StrategiesAnalysis</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p><p>Welcome to Jiayi’s blog. Let’s try something interesting!</p></p>
+<p><p>A short description of the post.</p></p>
 </div>
 
 <div class="d-byline">
-  Jiayi Wang <a href="https://www.linkedin.com/in/jiayi-wang-smu/" class="uri">https://www.linkedin.com/in/jiayi-wang-smu/</a> (My Github)<a href="https://github.com/King-S-Wang" class="uri">https://github.com/King-S-Wang</a>
+  Jiayi Wang <a href="https://www.linkedin.com/in/jiayi-wang-smu/" class="uri">https://www.linkedin.com/in/jiayi-wang-smu/</a> 
   
-<br/>05-21-2021
+<br/>08-06-2021
 </div>
 
 <div class="d-article">
-<p>/<em>library(distill)create_post(“The Sharpe Ratio”)</em>/</p>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#data-preparation">Data Preparation</a></li>
+<li><a href="#descriptive-and-inferential-statistics">Descriptive and Inferential Statistics</a></li>
+</ul>
+</nav>
+</div>
+<h1 id="introduction">Introduction</h1>
+<p>The PlayerUnknown’s Battlegrounds (PUBG) is a battle royal game with hundreds of million players. 100 players parachute onto an island and scavenge for weapons and equipment to kill others while avoiding getting killed themselves.</p>
+<p>To win the first placement, players use multiple strategies from their experience. Our team aims to enable players to get better ranks by extracting the relationships among death rate and different strategies from over 720K matches which give more statistical inspirations.</p>
+<h1 id="data-preparation">Data Preparation</h1>
+<p>To provide a clear picture of the PUBG match strategy analysis and to propose appropriate suggestions, in this project, we used the PUBG Match Deaths and Statistics Datasets. It is a publicly available dataset that can be found on <a href="https://www.kaggle.com/skihikingkevin/pubg-match-deaths">Kaggle</a>, containing over 720K competitive matches from the PUBG, extracted from a game tracker website, <a href="https://pubg.op.gg/">pubg.op.gg</a>.</p>
+<p>Instead of using all the data files provided in the original dataset, we mainly focus on 5 divided datasets of deaths in the match map ERANGEL which records above 80% of death events occurred within the 720K matches. Since the datasets is very huge, 2GB for each file, so we only take one of 5 datasets mentioned above, containing about 120K records of match.</p>
+<p>Before the analysis, we cleaned the dataset with following main steps:</p>
+<ul>
+<li><ol type="1">
+<li>Exclude all the possible missing values.</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>Remove the data that seemed like it was generated by a cheating program.</li>
+</ol></li>
+<li><ol start="3" type="1">
+<li>Put away the data that the killer’s position is over 800,000 to ensure the data of the killer’s position in this project is exactly between 0 and 800,000.</li>
+</ol></li>
+</ul>
+<h1 id="descriptive-and-inferential-statistics">Descriptive and Inferential Statistics</h1>
+<p>##. Landing Analysis After the game started, players would set off to different places. In generally, there are 2 main strategies. The first strategy, players are obsessed with high-value places which have good qualities and quantities of weapons and armours. Those high value places are also highly risky because it fascinates other players as well. You can always hear gunshots from there.</p>
+<p>The following picture was provided by <a href="https://pubg.op.gg/maps/statistics">PUBG official</a> which shows the distribution of valuable weapons. Indeed, those high frequency areas are also what we call downtown areas which have many buildings located next to each other.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
