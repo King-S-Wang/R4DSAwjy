@@ -86,7 +86,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>IoT-智能盆栽小车</title>
+  <title>IoT-Auto Watering Machine</title>
 
   <meta property="description" itemprop="description" content="Take care of your plants. The automatically Watering Machine."/>
 
@@ -97,21 +97,21 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <meta name="article:author" content="Jiayi Wang"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="IoT-智能盆栽小车"/>
+  <meta property="og:title" content="IoT-Auto Watering Machine"/>
   <meta property="og:type" content="article"/>
   <meta property="og:description" content="Take care of your plants. The automatically Watering Machine."/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="IoT-智能盆栽小车"/>
+  <meta property="twitter:title" content="IoT-Auto Watering Machine"/>
   <meta property="twitter:description" content="Take care of your plants. The automatically Watering Machine."/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["IoT-智能盆栽小车"]},{"type":"character","attributes":{},"value":["Take care of your plants. The automatically Watering Machine.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Jiayi Wang"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]}]}]},{"type":"character","attributes":{},"value":["08-05-2017"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["IoT-Auto Watering Machine"]},{"type":"character","attributes":{},"value":["Take care of your plants. The automatically Watering Machine.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Jiayi Wang"]},{"type":"character","attributes":{},"value":["https://example.com/norajones"]}]}]},{"type":"character","attributes":{},"value":["08-05-2017"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","toc"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1455,7 +1455,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"IoT-智能盆栽小车","description":"Take care of your plants. The automatically Watering Machine.","authors":[{"author":"Jiayi Wang","authorURL":"https://example.com/norajones","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2017-08-05T00:00:00.000+08:00","citationText":"Wang, 2017"}
+{"title":"IoT-Auto Watering Machine","description":"Take care of your plants. The automatically Watering Machine.","authors":[{"author":"Jiayi Wang","authorURL":"https://example.com/norajones","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2017-08-05T00:00:00.000+08:00","citationText":"Wang, 2017"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1465,7 +1465,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>IoT-智能盆栽小车</h1>
+<h1>IoT-Auto Watering Machine</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 <p><p>Take care of your plants. The automatically Watering Machine.</p></p>
@@ -1484,54 +1484,56 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li><a href="#download-project"><span>DOWNLOAD PROJECT</span></a>
 <ul>
-<li><a href="#作品内容">作品内容</a></li>
-<li><a href="#灵感来源">灵感来源</a></li>
-<li><a href="#设计思路">设计思路</a></li>
-<li><a href="#系统解构图">系统解构图</a>
+<li><a href="#work-content">Work content</a></li>
+<li><a href="#source-of-inspiration">Source of inspiration</a></li>
+<li><a href="#design-ideas">Design ideas</a></li>
+<li><a href="#system-deconstruction-diagram">System Deconstruction Diagram</a>
 <ul>
-<li><a href="#整体">整体</a></li>
-<li><a href="#双测距模块">双测距模块</a></li>
-<li><a href="#马达模块">马达模块</a></li>
-<li><a href="#光传感器模块">光传感器模块</a></li>
-<li><a href="#温度传感器模块">温度传感器模块</a></li>
-<li><a href="#土壤湿度传感器模块">土壤湿度传感器模块</a></li>
-<li><a href="#水位传感器模块">水位传感器模块</a></li>
-<li><a href="#水泵模块">水泵模块</a></li>
+<li><a href="#overall">Overall</a></li>
+<li><a href="#dual-ranging-module">Dual-ranging module</a></li>
+<li><a href="#motor-module">Motor module</a></li>
+<li><a href="#light-sensor-module">Light sensor module</a></li>
+<li><a href="#temperature-sensor-module">Temperature sensor module</a></li>
+<li><a href="#soil-moisture-sensor-module">Soil moisture sensor module</a></li>
+<li><a href="#water-level-sensor-module">Water level sensor module</a></li>
+<li><a href="#water-pump-module">Water pump module</a></li>
 </ul></li>
-<li><a href="#代码">代码</a></li>
-<li><a href="#创新点">创新点</a></li>
-<li><a href="#技术总结">技术总结</a></li>
+<li><a href="#codes">Codes</a></li>
+<li><a href="#innovation">Innovation</a></li>
+<li><a href="#technical-summary">Technical Summary</a></li>
 </ul></li>
 </ul>
 </nav>
 </div>
 <h1 id="download-project"><a href="https://github.com/King-S-Wang/Arduino-AutoWaterCar">DOWNLOAD PROJECT</a></h1>
-<h2 id="作品内容">作品内容</h2>
-<p>本作品名称为智能盆栽小车。其基于传统的智能小车硬件和自动浇花系统，通过arduino单片机控制多个传感器，使放在智能车上的盆栽能被自动照顾（如：缺水时浇花，选择阳光照射最大处，环境温度过高时前往阴影处等）</p>
-<h2 id="灵感来源">灵感来源</h2>
-<p>本项目的智能盆栽小车是同学基于智能家居新的创新尝试，灵感来源于某位同学暑假出门家庭旅行时，自己种植的植物因为在家中无人照顾，导致该其回家时发现植物已经因为缺水而死从而收到的启发，通过以往实训课程和C语言的学习，我们选择 Arduino UNO R3单片机和小车组合的方式来完成整套系统，同时arduino 的多传感器和模拟数字（A/D pin）输入为我们智能盆栽小车提供了更多的功能可行性。</p>
-<h2 id="设计思路">设计思路</h2>
-<p>本项目的智能盆栽小车可分为测距小车系统，自动浇花系统两大部分。 测距小车系统：由马达模块（含继电器模块），双测距模块（含舵机模块），光传感器模块（四个），温度传感器模块组成。首先光传感器模块判断出阳光最强处，通过单片机系统控制马达模块指示小车往阳光最大处移动，在移动前，经双测距模块判断该方向是否可前进，能前进则继续前往该方向，其他情况则中断前进指令。温度传感器负责检测环境温度，若检测到环境温度过高不适合植物生长，则通过马达模块让小车前往阴影处。 自动浇花系统：由土壤湿度传感器模块，水泵模块，水位传感器模块组成。将盆栽放在小车上，将土壤湿度传感器插入泥土并在小车的储水箱内加入足量的水。土壤湿度传感器反馈土壤湿度值给 arduino 单片机，在检测到土壤较干时（植物缺水状态），系统通过在储水箱内的水位传感器判断储水箱内是否有足够的水，若储水量充足，通过给水泵模块使能，经由水管将储水箱的水浇入盆栽，待土壤湿度传感器判断土壤水分充足时停止浇水。 总体来说，本项目首创的智能盆栽小车，类似将家中的植物交给专人管理，应用较广，需求可观，开发前景较大。此原型可编程也可调节各个传感器阈值，适用于其他多种不同植物，如仙人掌、水仙、薄荷、多肉，而目前市场基本空白，存在需求无法满足的情况，而且此项目成本较低，相信在投入市场后会有客观回报。</p>
-<h2 id="系统解构图">系统解构图</h2>
-<h3 id="整体">整体</h3>
+<h2 id="work-content">Work content</h2>
+<p>The name of this work is Smart Potted Car. Based on traditional smart car hardware and automatic watering system, multiple sensors are controlled by the Arduino microcontroller, so that the potted plants placed on the smart car can be automatically taken care of (such as: watering the flowers when there is water shortage, choosing the place where the sun is the most exposed, the ambient temperature Go to the shade when it is too high, etc.)</p>
+<h2 id="source-of-inspiration">Source of inspiration</h2>
+<p>The smart potted car in this project is a new innovative attempt by students based on smart homes. It was inspired by a student who planted his own plants during a family trip during the summer vacation because there was no one to take care of them at home. As a result, when he returned home, he found that the plants were already lacking. Inspired by the death of water, through previous training courses and C language learning, we chose the combination of Arduino UNO R3 microcontroller and trolley to complete the whole system. At the same time, Arduino’s multi-sensor and analog-digital (A/D pin) inputs provide more functional feasibility for our smart potted car.</p>
+<h2 id="design-ideas">Design ideas</h2>
+<p>The intelligent potted car in this project can be divided into two parts: the distance measuring car system and the automatic watering system. Ranging trolley system: It is composed of motor module (including relay module), dual ranging module (including steering gear module), optical sensor module (four), and temperature sensor module. First, the light sensor module determines the most vital sunlight, and the single-chip microcomputer system controls the motor module to instruct the car to move to the most vital sunlight. Before proceeding, the dual-ranging module determines whether the direction can be moved forward, and if it can move forward, continue in the direction. Others, In this case, the forward instruction is interrupted. The temperature sensor is responsible for detecting the ambient temperature. If it detects that the ambient temperature is too high and not suitable for plant growth, the motor module will let the car goes to the shade.</p>
+<p>Automatic watering system: consists of soil moisture sensor module, water pump module, and water level sensor module. Put the potted plant on the trolley, insert the soil moisture sensor into the soil and add sufficient water to the water storage tank of the trolley. The soil moisture sensor feeds back the soil moisture value to the Arduino microcontroller. When it detects that the soil is dry (the plant lacks water), the system uses the water level sensor in the water storage tank to determine whether there is enough water in the water storage tank. If the water storage is sufficient, pass The water supply pump module is enabled, and the water from the water storage tank is poured into the potted plant through the water pipe, and the watering is stopped when the soil moisture sensor determines that the soil moisture is sufficient.</p>
+<p>In general, the smart potted car pioneered by this project is similar to handing over the plants at home to a dedicated person for management. It is widely used, has considerable demand, and has a brighter development prospect. This prototype is programmable and can also adjust the threshold of each sensor. It is suitable for many other different plants, such as cacti, narcissus, mint, and succulents. However, the current market is basically blank, and there are situations where the demand cannot be met, and the cost of this project is relatively low. There will be objective returns after entering the market.</p>
+<h2 id="system-deconstruction-diagram">System Deconstruction Diagram</h2>
+<h3 id="overall">Overall</h3>
 <p><img src="img/img1.jpg" /></p>
-<h3 id="双测距模块">双测距模块</h3>
+<h3 id="dual-ranging-module">Dual-ranging module</h3>
 <p><img src="img/img2.png" /> <img src="img/img3.png" /></p>
-<h3 id="马达模块">马达模块</h3>
+<h3 id="motor-module">Motor module</h3>
 <p><img src="img/img4.jpg" style="width:40.0%" /><img src="img/img5.jpg" style="width:60.0%" /></p>
 <p><img src="img/img6.jpg" /> <img src="img/img7.png" /> <img src="img/img8.png" /></p>
-<h3 id="光传感器模块">光传感器模块</h3>
+<h3 id="light-sensor-module">Light sensor module</h3>
 <p><img src="img/img9.png" /> <img src="img/img10.png" /> <img src="img/img11.jpg" style="width:40.0%" /><img src="img/img12.jpg" style="width:50.0%" /></p>
-<h3 id="温度传感器模块">温度传感器模块</h3>
+<h3 id="temperature-sensor-module">Temperature sensor module</h3>
 <p><img src="img/img13.png" /></p>
-<h3 id="土壤湿度传感器模块">土壤湿度传感器模块</h3>
+<h3 id="soil-moisture-sensor-module">Soil moisture sensor module</h3>
 <p><img src="img/img14.png" /></p>
-<h3 id="水位传感器模块">水位传感器模块</h3>
+<h3 id="water-level-sensor-module">Water level sensor module</h3>
 <p><img src="img/img15.png" /></p>
-<h3 id="水泵模块">水泵模块</h3>
+<h3 id="water-pump-module">Water pump module</h3>
 <p><img src="img/img16.png" /></p>
-<h2 id="代码">代码</h2>
-<p>此代码基于Arduino语言，第一部分我们需要定义主板的针脚以及设置通信传输波特率。针脚的定义因人而异，依据自己的接线方法设置对应针脚即可。</p>
+<h2 id="codes">Codes</h2>
+<p>This code is based on the Arduino language. In the first part, we need to define the pins of the motherboard and set the communication baud rate. The definition of the pins varies from person to person, just set the corresponding pins according to your own wiring method.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#include &lt;Servo.h&gt;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">int</span> motorL1=6<span class="kw">;</span> <span class="ex">//定义左边轮子前进方向</span></span>
@@ -1591,7 +1593,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="ex">delay</span><span class="er">(</span><span class="ex">2000</span><span class="kw">);</span> <span class="ex">//开机延时</span></span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
 </div>
-<p>下面的代码是主函数，在依次执行完一次上面的初始化设置代码后，主控芯片将会循环执行下面的函数。 实现对小车的操控以及小车对环境的自动识别功能也主要在这一部分通过代码实现。</p>
+<p>The following code is the main function. After the above initialization setting code is executed one time in sequence, the main control chip will execute the following function in a loop.</p>
+<p>The realization of the control of the car and the automatic identification of the car to the environment are also mainly realized through code in this part.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">void</span> loop<span class="er">(</span><span class="kw">)</span> <span class="ex">//主函数</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">{</span></span>
@@ -1698,7 +1701,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>     </span>
 <span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="er">}</span></span></code></pre></div>
 </div>
-<p>下面这部分定义的代码为实现基本的对小车操作功能，通过集成到一个function，可以让上一部分的代码更加整洁易懂。</p>
+<p>The code defined in the following part is to realize the basic function of operating the car. By integrating it into a function, the code in the previous part can be more clean and easy to understand.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">void</span> range_f<span class="er">(</span><span class="kw">){</span> <span class="ex">//测距函数</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">s.write</span><span class="er">(</span><span class="ex">90</span><span class="kw">);</span> <span class="ex">//舵机中位</span> </span>
@@ -1803,16 +1806,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a><span class="ex">digitalWrite</span><span class="er">(</span><span class="ex">motorR2,LOW</span><span class="kw">);</span> </span>
 <span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a><span class="er">}</span> </span></code></pre></div>
 </div>
-<h2 id="创新点">创新点</h2>
+<h2 id="innovation">Innovation</h2>
 <ul>
-<li><p>在传统的浇花系统上加入水位传感器，检测储水箱真实水位，防止水泵空 转，节约系统电能让系统可以持续运行更长的时间。</p></li>
-<li><p>在智能小车的基础上增加智能浇花系统，实现了两套系统的结合与创新。</p></li>
-<li><p>在智能盆栽小车的四个角上加入了光传感器，并设定阈值。只有在白天， 小车才会通过检测光强，自动前往光线最强处进行光合作用。</p></li>
-<li><p>整套系统通过温度传感器能对环境温度做出反应，温度过高能前往阴影处， 多种传感器都是围绕能让植物实现自己照顾自己而设计，完全实现托管植物或懒 人法养植物。</p></li>
+<li><p>Add a water level sensor to the traditional watering system to detect the actual water level of the water storage tank and prevent the water pump from being empty. This could avoid unnecessary energy costs and let the system continue running for a more extended time.</p></li>
+<li><p>The intelligent flower watering system is added based on the intelligent car, which realizes the combination and innovation of the two systems.</p></li>
+<li><p>Light sensors are added to the four corners of the intelligent potted car, and thresholds are set. Only during the day, Only by detecting the light intensity, the car will automatically go to the place with the strongest light for photosynthesis.</p></li>
+<li><p>The whole system can react to the ambient temperature through the temperature sensor. If the temperature is too high, it can go to the shadow. A variety of sensors are designed around allowing plants to take care of themselves, fully realizing managed plants or lazy people grow plants.</p></li>
 </ul>
-<h2 id="技术总结">技术总结</h2>
-<p>目前市场上暂无同类可照顾植物的智能家居，本项目首创的智能盆栽小车， 类似将家中的植物交给专人管理，应用较广，需求可观，开发前景较大。此原型 可编程也可调节各个传感器阈值，可以控制土壤的湿度，后期也可拓展做温箱从 而控制环境温度，可适用于其他多种不同植物，如仙人掌、水仙、多肉、热带植 物，而目前市场基本空白，存在需求无法满足的情况，而且此项目成本较低，可 拓展功能多，针对不同人士对不同植物的养殖要求，可定制不同的智能盆栽小车， 相信在投入市场后会有客观回报。</p>
-<p>同时小车现在 demo 只是初步模型，完成了功能但是做工较为粗糙，当时选 材导致体型的限制让小车走线较乱，样貌不佳，而且代码因为时间有限原因较为 简单，后期还有改进空间。若能成功商用，可通过 PCB 和集成电路优化系统，使 小车更加精简漂亮、电能节约，后期还可加入太阳能模块等，完全真正自主</p>
+<h2 id="technical-summary">Technical Summary</h2>
+<p>At present, there is no smart home that can take care of plants of the same kind on the market. The smart potted car invented by this project. It is similar to handing over the plants in the home to a dedicated person for management, which has a wide range of applications, considerable demand, and great development prospects. This prototype programmable and adjustable thresholds of each sensor. It can control the humidity of the soil and can also be expanded as a thermostat. The environmental temperature control can be applied to many other different plants, such as cacti, narcissus, succulent, tropical plants.</p>
+<p>However, the current market is basically blank, and there is a situation where the demand cannot be met, and the cost of this project is relatively low.</p>
+<p>There are many expansion functions, and different intelligent potted carts can be customized according to the cultivation requirements of different people for different plants. I believe there will be objective returns after being put into the market.</p>
+<p>At the same time, the demo of the car is only a preliminary model. The function is completed, but the workmanship is relatively rough.</p>
+<p>The limitation of the size caused by the material makes the trolley’s wiring disorderly, the appearance is not good, and the code is relatively more due to the limited time. Simple, there is room for improvement later. If it can be commercialized successfully, the system can be optimized through PCB and integrated circuits to make the car is more streamlined and beautiful, saves electricity, and can be added with solar modules in the later stage, which can take care of plants completely and independently.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "description": "The projects contain following languages: Python, Tableau, R, Matlab. I hope those projects would help you :D",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-07T01:47:05+08:00"
+      "last_modified": "2021-08-07T02:01:53+08:00"
     },
     {
       "path": "index.html",
       "title": "My Projects",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-07T01:47:05+08:00"
+      "last_modified": "2021-08-07T02:15:23+08:00"
     }
   ],
   "collections": ["posts/posts.json"]

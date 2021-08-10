@@ -1,7 +1,7 @@
 ---
 title: "About this blog"
 description: |
-  Some additional details about the blog
+  The projects contain following languages: Python, Tableau, R, Matlab. I hope those projects would help you :D
 ---
 
 ```{r setup, include=FALSE}

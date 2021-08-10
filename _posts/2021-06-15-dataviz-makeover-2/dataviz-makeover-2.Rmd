@@ -1,5 +1,5 @@
 ---
-title: "Tableau-Makeover 2王家奕"
+title: "Tableau-Makeover 2"
 description: |
   Refine of "Merchandise trade performance with major trade partner, 2020"
 author:
