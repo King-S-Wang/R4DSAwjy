@@ -36,12 +36,12 @@ These three are function files, *cut.m* and *gaussFilter.m* are the sub-function
 ### cut.m
 ```{matlab eval=FALSE}
 function featoutput=cut(Grinput,Indtaginput,BinNum,level)
-%把图像切分为四块，分别统计其直方图
+%Divide the image into four pieces and count their histograms, respectively
 if level==0
     return;
 end
-[height,width]=size(Grinput);  %梯度图尺寸大小
-%分区
+[height,width]=size(Grinput);  %Gradient map size
+%Partition
 half_height=ceil(height/2);
 half_width=ceil(width/2);
 Gr_ori1=Grinput(1:half_height,1:half_width);
@@ -52,7 +52,7 @@ Indtag_ori1=Indtaginput(1:half_height,1:half_width);
 Indtag_ori2=Indtaginput(1:half_height,(1+half_width):2*half_width);
 Indtag_ori3=Indtaginput((1+half_height):2*half_height,1:half_width);
 Indtag_ori4=Indtaginput((1+half_height):2*half_height,(1+half_width):2*half_width);
-% 开始计算四个选区
+% Start counting four constituencies
 totalnum=0;
 for i=1:level
     totalnum=totalnum+4^i*BinNum;
@@ -98,24 +98,22 @@ end
 end
 ```
 
-### gaussFilter.m(高斯滤波器)
+### gaussFilter.m
 
-高斯滤波是一种线性平滑滤波，适用于消除高斯噪声，广泛应用于图像处理的减噪过程。通俗的讲，高斯滤波就是对整幅图像进行加权平均的过程，每一个像素点的值，都由其本身和邻域内的其他像素值经过加权平均后得到。高斯滤波的具体操作是：用一个模板（或称卷积、掩模）扫描图像中的每一个像素，用模板确定的邻域内像素的加权平均灰度值去替代模板中心像素点的值。
+Gaussian filtering is a linear smoothing filter, which is suitable for eliminating Gaussian noise and is widely used in the denoising process of image processing. In layman's terms, Gaussian filtering is the process of weighted averaging the entire image. The value of each pixel is obtained by weighted averaging of itself and other pixel values in the neighborhood. The specific operation of Gaussian filtering is to scan each pixel in the image with a template (or convolution, mask), and use the weighted average gray value of the pixels in the neighborhood determined by the template to replace the value of the center pixel of the template.
 
 ```{matlab eval=FALSE}
 function G=gaussFilter(segma,kSize)
-% Creates a 1-D Gaussian kernel of a standard deviation 'segma' and a size创建标准偏差“segma”和大小“kSize”的一维高斯核。
+% Creates a 1-D Gaussian kernel of a standard deviation 'segma' and a size
 % In theory, the Gaussian distribution is non-zero everywhere. In practice,
 % it's effectively zero at places further away from about three standard
 % deviations. Hence the reason why the kernel is suggested to be truncated
 % at that point.
-%论上，高斯分布在任何地方都是非零的。 实际上，在远离三个标准偏差的地方实际上是零。 因此，内核被建议在这一点被截断的原因。
 % The 2D Gaussian filter is a complete circular symmetric operator. It can be
 % seperated into x and y components. The 2D convolution can be performed by
 % first convolving with 1D Gaussian in the x direction and the same in the
-% 二维高斯滤波器是一个完整的圆对称算子。 它可以分成x和y两个部分。 2D卷积可以通过首先在x方向上以1D高斯进行卷积并且在y方向上进行相同的卷积来执行。
 
-if nargin<1 % nargin是function变量输入数
+if nargin<1 % nargin is function's input
     segma=1;
 end
 if nargin<2
@@ -128,7 +126,7 @@ G=(1/(sqrt(2*pi)*segma)) * exp (-(x.^2)/(2*segma^2));
 
 ### feature1.m
 
-由cut.m和gaussFilter.m我们组合在一起写出了负责用来计算的主函数featur1.m。它可以计算图片，并输出[1,3]的矩阵，我们可依据矩阵其中的数值来判断猜拳内容。
+We combined cut.m and gaussFilter.m to write the main function featur1.m, responsible for the calculation. It can calculate the picture and output the matrix of [1,3], and we can judge the boxing content based on the matrix's value.
 
 ```{matlab eval=FALSE}
 function f1=feature1(im,Angle,BinNum,level,totalnum)    
@@ -136,10 +134,11 @@ function f1=feature1(im,Angle,BinNum,level,totalnum)
     im=double(im);
     [height,width]=size(im);
     BW=edge(im,'canny'); 
-    %采用灰度或一个二值化图像im作为它的输入，
-    %并返回一个与im相同大小的二值化图像BW，
-    %在函数检测到边缘的地方为1，其他地方为0。
-    %采用Canny 算子边缘定位精确性和抗噪声能力效果较好 
+    % Uses grayscale or a binary image im as its input,
+    % And return a binary image BW of the same size as im,
+    % Is 1 where the function detects the edge, and 0 elsewhere.
+    % Adopting Canny operator has better 
+    %   edge positioning accuracy and anti-noise ability
     
     G=bwlabel(BW,8);
     filter=gaussFilter(1);
@@ -176,7 +175,7 @@ end
 ![](img/img4.png){width=50%}![](img/img5.png){width=50%}
 
 ### a2.m(For testing)
-a2.m是我们用来调试的基础工程。
+a2.m is the basic project we use for debugging.
 
 ```{matlab eval=FALSE}
 clear;
@@ -202,7 +201,7 @@ end
 while(1)
     tag=zeros(1,2);
     for n=1:2
-        xm=sprintf('请输入第%d个手势：',n);
+        xm=sprintf('Pleases input No.%d figure',n);
         fname=input(xm,'s');
         imidentify=imread(fname);
         if n==1 subplot(1,3,1);imshow(imidentify);end
@@ -218,26 +217,26 @@ while(1)
             end
         end
     %%
-D1L=1.8;D1R=4.0; %布 distance(1)左右门限  %D1L=1.9-->1.8  D1R=4.5-->4.0
-D2L=4.5;D2R=7  ; %剪刀 distance(2)左右门限 %D2L=4.9-->4.5  D2R=5.5-->7
-D3L=8.0;D3R=26.1;%石头 distance(3)左右门限 %D3L=9 8-->9 D3R=24.1-->26.1
-XX=5.28;           %distance(3)异形指数        
+D1L=1.8;D1R=4.0; %cloth distance(1)Threshold  %D1L=1.9-->1.8  D1R=4.5-->4.0
+D2L=4.5;D2R=7  ; %scissors distance(2)Threshold %D2L=4.9-->4.5  D2R=5.5-->7
+D3L=8.0;D3R=26.1;%stone distance(3)Threshold %D3L=9 8-->9 D3R=24.1-->26.1
+XX=5.28;               
 if distance(1)==0
-            tag(1,n)=1;disp('a是布');
+            tag(1,n)=1;disp('a is cloth');
         elseif distance(2)==0
-            tag(1,n)=2;disp('b是剪刀');
+            tag(1,n)=2;disp('b is scissors');
         elseif distance(3)==0
-            tag(1,n)=3;disp('c是石头');
+            tag(1,n)=3;disp('c is stone');
         else
               if distance(3)>D3L||distance(2)>D3L||distance(1)>D3L
-                 tag(1,n)=3;disp('c是石头');
+                 tag(1,n)=3;disp('c is stone');
               
               elseif distance(1)<D1R&distance(2)>D2L&distance(2)<D2R&distance(3)<XX
-                 tag(1,n)=1;disp('a是布');
+                 tag(1,n)=1;disp('a is cloth');
               elseif distance(1)>D1R&distance(2)<5.8&distance(3)<XX
-                 tag(1,n)=2;disp('b是剪刀');
+                 tag(1,n)=2;disp('b is scissors');
               else
-                  disp('无效手势！！请重新输入！！');
+                  disp('Invalid gesture! ! please enter again! !');
                   tag(1,n)=4;break;
  
               
@@ -259,7 +258,7 @@ if distance(1)==0
         subplot(1,3,2);imshow('lose.jpg');
     end
  
-    xn=input('请选择继续玩(c)或者退出(q):','s');
+    xn=input('Continue to play(c) or exit(q):','s');
     switch(xn)
         case 'c'  
             continue;
@@ -274,13 +273,13 @@ end
 
 ### hougege.m
 
-用GUIDE创建名为hougege的GUI程序。运行该GUI时，程序首先从主函数的入口点开始运行，即从function varargout = hougege(varargin)开始运行。varargin为输入参数，varargout为输出参数。当创建GUI时，varargin为空。当触发GUI控件对象时，varargin为一个1*4的单元数组。第1个单元存放空间的回调函数名，第2~4单元存放该回调函数的输入参数，分别为，hObject：当前回调函数对应的GUI对象句柄，eventdat：附加参数，handles：当前GUI所有数据的结构体。
+Use GUIDE to create a GUI program named hougege. When running the GUI, the program first starts to run from the entry point of the main function, that is, from function varargout = hougege(varargin). Varargin is an input parameter, and varargout is an output parameter. When creating the GUI, varargin is empty. When the GUI control object is triggered, varargin is a 1*4 unit array. The first unit stores the name of the callback function in the space, and the second to fourth units store the input parameters of the callback function, respectively, hObject: the GUI object handle corresponding to the current callback function, eventdat: additional parameters, and handles: all the data of the current GUI Structure.
 
-gui_Singleton = 1;保证只能运行该GUI程序的一个实例，即只能打开一个窗口。
+gui_Singleton = 1;Ensure that only one instance of the GUI program can be run, that is, only one window can be opened.
 
-紧接着定义一个结构体gui_State，描述了该GUI的状况，包括gui的名字、运行实例、初始化函数、输出函数、布局以及回调函数。该结构体有6个字段：第1个字段为gui_Name,字段值为mfilename。mfilename函数用于M文件内部，返回当前正在运行的M文件名字;若用于命令行,返回空字符串。第2个字段为gui_Singleton,设置是否只产生单一GUI实例。第3个字段为gui_OpeningFcn,字段值为当前GUI的OpeningFcn函数句柄。第4个字段为gui_OutputFcn,字段值为当前GUI的OutputFcn函数的句柄。第5个字段为gui _LayoutFcn,用于创建GUI实例。字段值为空时，先检查上次GUI初始化是否完成,若没有完成,则删除上一次创建的句柄并重新创建。第6个字段为gui_Callback.初始值为空，表示只运行OpeningFcn和gui_OutputFcn,而不运行Callback。
+Then define a structure gui_State, which describes the status of the GUI, including the name of the gui, running instances, initialization functions, output functions, layout, and callback functions. The structure has 6 fields: the first field is gui_Name, and the field value is mfilename. The mfilename function is used inside the M file and returns the name of the currently running M file; if used on the command line, it returns an empty string. The second field is gui_Singleton, which sets whether to generate only a single GUI instance. The third field is gui_OpeningFcn, the field value is the current GUI OpeningFcn function handle. The fourth field is gui_OutputFcn, and the field value is the handle of the OutputFcn function of the current GUI. The fifth field is gui_LayoutFcn, which is used to create a GUI instance. When the field value is empty, first check whether the last GUI initialization is completed. If not, delete the handle created last time and recreate it. The sixth field is gui_Callback. The initial value is empty, which means that only OpeningFcn and gui_OutputFcn are run, and Callback is not run.
 
-然后程序通过gui_State.gui_Callback = str2func(varargin{1});分别取得figure和包含的控件的CreateFcn回调函数，创建各个控件。figure和各控件创建完毕，程序会调用OpeningFcn进行初始化，然后运行OutputFcn，把figure的句柄作为输出参数输出。这时，GUI界面便在屏幕上显示出来。此后程序处于等待状态，等待用户的操作。gui_mainfcn是GUI默认的处理函数，该函数用于处理GUI创建、GUI布局和回调函数。程序在调用gui_mainfcn函数时，会给figure以及各控件加一个事件监听器（listener），用来监听用户对figure以及各控件的操作。例如：用户用鼠标点击一个pushbutton按钮时，程序会监听到这个时间，然后调用该按钮的回调函数pushbutton_callback，对事件进行处理。用户点击figure的关闭按钮时，会调用其CloseRequestFcn回调函数，执行关闭窗口的操作等等。
+Then the program passes gui_State.gui_Callback = str2func(varargin{1});Respectively obtain the CreateFcn callback function of the figure and the included controls, and create each control. After the figure and each control are created, the program will call OpeningFcn to initialize, then run OutputFcn, and output the handle of the figure as an output parameter. At this time, the GUI interface is displayed on the screen. After that, the program is in a waiting state, waiting for the user's operation. gui_mainfcn is the default processing function of the GUI, which is used to process GUI creation, GUI layout and callback functions. When the program calls the gui_mainfcn function, it will add an event listener to the figure and each control to monitor the user's operations on the figure and each control. For example: when the user clicks a pushbutton button with the mouse, the program will monitor this time, and then call the button's callback function pushbutton_callback to process the event. When the user clicks the close button of the figure, it will call its CloseRequestFcn callback function to execute the operation of closing the window and so on.
 
 ```{matlab eval=FALSE}
 function varargout = hougege(varargin)
@@ -319,9 +318,9 @@ end
 % End initialization code - DO NOT EDIT
 ```
 
-### 其他(Fanhui.m)
+### Others(Fanhui.m)
 
-接下来，在a2的基础上，通过GUI设计和其他的子函数我们编写了a1.m，设计了对应的人机交互界面a1.fig.至此猜拳手势识别功能我们就已经实现了。
+Next, on the basis of a2, we wrote a1.m through GUI design and other sub-functions, and designed the corresponding human-computer interaction interface a1.fig. So far we have realized the gesture recognition function of the guessing box.
 
 ```{matlab eval=FALSE}
 function varargout = fanhui(varargin)
@@ -370,25 +369,26 @@ close(handles.fanhui);
 % handles    structure with handles and user data (see GUIDATA)
 ```
 
-varargin是“Variable length input argument list”的缩写，它提供了一种函数可变参数列表机制，允许调用者调用该函数时根据需要来改变输入参数的个数。
+Varargin is the abbreviation of "Variable length input argument list", it provides a function variable parameter list mechanism, allowing the caller to change the number of input parameters as needed when calling the function.
 
-varargout可以看做“Variable length output argument list”的缩写。在matlab中定义m函数时通过varargout我们可以得到可变个数个返回值。
+Varargout can be regarded as the abbreviation of "Variable length output argument list". When defining the m function in matlab, we can get a variable number of return values through varargout.
 
-nargin通过调用当前正在执行的函数返回输入参数的数量，只在函数体内使用nargin语法功能。
+Nargin returns the number of input parameters by calling the currently executing function, and only uses the nargin syntax function in the function body.
 
-nargout指出了输出参数的个数（nargin指出了输入参数的个数）。
+Nargout points out the number of output parameters (nargin points out the number of input parameters).
 
-Feiyang执行效果：按钮一输入手势一，按钮二输入手势二，（无效手势重新输入）输入全部完成后进行图像识别，识别后进行比较，得出“输”，“赢”，“平”的结果。最后可选择执行初始化和退出。
+Feiyang execution effect: button one input gesture one, button two input gesture two, (invalid gesture re-enter) image recognition is performed after all input is completed, and comparison is made after recognition, and the results of "lose", "win", and "flat" are obtained . Finally, you can choose to perform initialization and exit.
 
 ![](img/img8.png){width=40%}
 
-## 工程结果展示
+## Result
 ![](img/img9.png){width=50%}![](img/img10.png){width=50%}
 ![](img/img11.png){width=50%}![](img/img12.png){width=50%}
 ![](img/img13.png){width=50%}![](img/img14.png){width=50%}
 
-## 总结
-我们做的改程序还非常初始，由于图片参数设置的原因，只能识别给定的图片，对于其他图片的计算结果数值偏大，都会得出为石头的结果，还需要进一步改进。除了再这方面改进外，我们还可以改进算法，通过MATLAB的自带摄像头函数进行图片的获取并计算出结果，减少其他背景因素的影响。
+## Summarize
 
-在这个程序基础上，我们可以通过算法的改进，对其他图像进行识别，比如LOGO和一些生活中的标志，并通过联网图片搜索实现机器学习的功能。
+The modification program we made is still very initial. Due to the picture parameter settings, only a given picture can be recognized. The calculation result will be too large for other images, resulting in a stone, which needs further improvement. In addition to this improvement, we can also improve the algorithm, through MATLAB's built-in camera function to obtain pictures and calculate the results, reducing the impact of other background factors.
+
+On the basis of this program, we can identify other images, such as LOGO and some signs in life, through the improvement of the algorithm, and realize the function of machine learning through networked image search.
 
