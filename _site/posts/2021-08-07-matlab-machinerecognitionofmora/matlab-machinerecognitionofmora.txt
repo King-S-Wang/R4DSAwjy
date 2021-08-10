@@ -1,7 +1,7 @@
 ---
 title: "MATLAB-Machine recognition of Mora."
 description: |
-  [Chinese version] Using Matlab to recognize the input of Mora pictures and output the results.
+  Using Matlab to 烦烦烦recognize the input of Mora pictures and output the results.
 author:
   - name: Jiayi Wang
     url: https://example.com/norajones
@@ -12,22 +12,26 @@ output:
     toc: TRUE
 ---
 
+# [DOWNLOAD PROJECT](https://github.com/King-S-Wang/MATLAB-Hand)
 
-# [工程下载](https://github.com/King-S-Wang/MATLAB-Hand)
+# Abstract
 
-# 摘要
 
-图片识别总看起来遥不可及，为了更好得接触了解图片识别，我们从手势识别出发，从简单的猜拳问题——只有的三个不同可能性的情况，通过算法实现对图片内容的识别和在此基础上的猜拳结果判断。判断除了要能区分石头、剪刀、布的情况外，对错误的手势也要能识别并反馈。
+Image recognition always looks out of reach, in order to better understand the image recognition.We start from the gesture recognition, the simple guess quiz problem - only three different possibilities, through the algorithm to achieve the image content identification.And on the basis of the results of the judgment of quiz. Judgment in addition to being able to distinguish between the stone, scissors, cloth, the wrong gesture to recognize and feedback.
 
-# 模型和方法
-猜拳的结果从总体上来说只有三种可能性——拳头，剪刀，布。因此我们要进行图像识别必须要让机器知道这三者的区别。
-很明显拳头，剪刀，布（为方便之后简称猜拳内容）这三者，人是通过外观的不同来识别的。因此我们考虑让机器经过图片采集后，进行图像处理取出识别的猜拳内容轮廓，通过轮廓的区别来判断猜拳的具体内容是什么。基于此，我们就可以输入两张图片让机器识别猜拳内容，然后分别给定一个值，通过两个值的比较我们最终可以得出猜拳的结果。
-我们通过一步一步的改进组合得到结果：
+
+# Models and methods
+
+There are only three possibilities for the result of guessing in general-fist, scissors, and cloth. Therefore, if we want to perform image recognition, we must let the machine know the difference between the three. Obviously, fists, scissors, and cloth (hereafter referred to as the content of guessing for convenience), people are identified by the difference in appearance. Therefore, we consider letting the machine perform image processing to take out the contours of the identified boxing guesses after the picture is collected, and judge the specific content of the boxing guesses by the difference of the contours. Based on this, we can enter two pictures for the machine to recognize the content of the boxing, and then give a value respectively, and through the comparison of the two values, we can finally get the result of the boxing.
+
+We get the result through a step-by-step improvement combination:
+
 ![](img/img1.png)
 
-## 算法实现
-最核心的计算是：cut.m   gaussFilter.m  feature1.m
-这三个都是function文件，其中cut.m和gaussFilter.m是feature1.m的子function文件，feature1.m是a2的子function文件，a2.m是用来前期调试的暂时文件。
+## Algorithm implementation
+
+The core calculation is: *cut.m* *gaussFilter.m* [feature1.m]
+These three are function files, *cut.m* and *gaussFilter.m* are the sub-function files of *feature1.m*. *feature1.m* is the sub-function file of *a2.m*, and *a2.m* is the temporary file used for preliminary debugging.
 
 ### cut.m
 ```{matlab eval=FALSE}
@@ -174,7 +178,7 @@ end
 ### a2.m(For testing)
 a2.m是我们用来调试的基础工程。
 
-```{matlib eval=FALSE}
+```{matlab eval=FALSE}
 clear;
 clc;
 BinNum=36;
@@ -263,6 +267,7 @@ if distance(1)==0
             break;
     end
 end
+
 ```
 
 ![](img/img6.png){width=40%}![](img/img7.png){width=60%}
@@ -318,7 +323,7 @@ end
 
 接下来，在a2的基础上，通过GUI设计和其他的子函数我们编写了a1.m，设计了对应的人机交互界面a1.fig.至此猜拳手势识别功能我们就已经实现了。
 
-```{matlib eval=FALSE}
+```{matlab eval=FALSE}
 function varargout = fanhui(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
