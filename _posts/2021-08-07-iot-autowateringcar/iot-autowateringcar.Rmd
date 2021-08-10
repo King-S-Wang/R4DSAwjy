@@ -1,7 +1,7 @@
 ---
-title: "IoT-Auto Watering Machine"
+title: "IoT-Auto Watering Machine[Chinese]"
 description: |
-  照顾好你的植物。全自动植物照顾系统。
+  Take care of your plants. The automatically Watering Machine.
 author:
   - name: Jiayi Wang
     url: https://example.com/norajones

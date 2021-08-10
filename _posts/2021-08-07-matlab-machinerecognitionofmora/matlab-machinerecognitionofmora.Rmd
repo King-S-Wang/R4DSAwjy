@@ -1,7 +1,7 @@
 ---
-title: "MATLAB-Machine recognition of Mora."
+title: "MATLAB-Machine recognition of Mora[Chinese]"
 description: |
-  [Chinese version] Using Matlab to recognize the input of Mora pictures and output the results.
+  Using Matlab to recognize the input of Mora pictures and output the results.
 author:
   - name: Jiayi Wang
     url: https://example.com/norajones
