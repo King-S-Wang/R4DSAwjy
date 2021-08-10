@@ -217,7 +217,7 @@ while(1)
             end
         end
     %%
-D1L=1.8;D1R=4.0; %cloth distance(1) Threshold  %D1L=1.9-->1.8  D1R=4.5-->4.0
+D1L=1.8;D1R=4.0; %cloth distance(1)Threshold  %D1L=1.9-->1.8  D1R=4.5-->4.0
 D2L=4.5;D2R=7  ; %scissors distance(2) Threshold %D2L=4.9-->4.5  D2R=5.5-->7
 D3L=8.0;D3R=26.1;%stone distance(3) Threshold %D3L=9 8-->9 D3R=24.1-->26.1
 XX=5.28;               
