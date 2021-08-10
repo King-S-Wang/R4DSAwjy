@@ -1,7 +1,7 @@
 ---
 title: "IoT-Auto Watering Machine"
 description: |
-  Take care of your plants. The automatically Watering Machine.
+  照顾好你的植物。全自动植物照顾系统。
 author:
   - name: Jiayi Wang
     url: https://example.com/norajones
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(fig.retina=3,#resolution high
                      message=FALSE,
                      warning=FALSE)
 ```
-# [DOWNLOAD PROJECT](https://github.com/King-S-Wang/Arduino-AutoWaterCar)
+# [工程下载](https://github.com/King-S-Wang/Arduino-AutoWaterCar)
 
 ## 作品内容
 本作品名称为智能盆栽小车。其基于传统的智能小车硬件和自动浇花系统，通过arduino单片机控制多个传感器，使放在智能车上的盆栽能被自动照顾（如：缺水时浇花，选择阳光照射最大处，环境温度过高时前往阴影处等）
@@ -377,4 +377,4 @@ digitalWrite(motorR2,LOW);
 同时小车现在 demo 只是初步模型，完成了功能但是做工较为粗糙，当时选
 材导致体型的限制让小车走线较乱，样貌不佳，而且代码因为时间有限原因较为
 简单，后期还有改进空间。若能成功商用，可通过 PCB 和集成电路优化系统，使
-小车更加精简漂亮、电能节约，后期还可加入太阳能模块等，完全真正自主
+小车更加精简漂亮、电能节约，后期还可加入太阳能模块等，实现完全真正自主照顾的功能。
