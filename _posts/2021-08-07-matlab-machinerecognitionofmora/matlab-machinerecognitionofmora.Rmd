@@ -1,7 +1,7 @@
 ---
 title: "MATLAB-Machine recognition of Mora."
 description: |
-  qqq
+  基于MATLAB的手势猜拳识别与判断。识别输入图像的手势并输出判断结果。
 author:
   - name: Jiayi Wang
     url: https://example.com/norajones
