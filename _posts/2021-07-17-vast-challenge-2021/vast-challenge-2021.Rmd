@@ -1075,6 +1075,8 @@ By changing hours and car id in the codes, we could find useful patterns:
 
 1. By filtering the records during the early morning (2am to 4am), I find some anomalies during this special time. Car id: 4, 10, 35, 32, 16, and 21 arrived to place Car id: 16's home at 03:30, Jan 11, 2014. Car id: 21 and 24 arrived to place car id: 17's home at 03:40, Jan 9, 2014.
 
+### [Shiny Application(Be patient to generate website)](https://king-s-wang.shinyapps.io/ShinyGP/)
+
 ```{r}
 gps_t5=gps
 gps_t5$timestamp=date_time_parse(gps_t5$timestamp,

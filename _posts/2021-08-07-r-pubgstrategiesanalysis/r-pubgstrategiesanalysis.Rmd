@@ -118,11 +118,11 @@ choose the landing place.
 ## The Final Playzone Analysis
 
 PUBG players who survived from landing will face more hostile and precarious conditions as they pursue the number one spot. The ["Blue zone"](https://pubg.fandom.com/wiki/The_Playzone) is a core features of the game and it limits the space in the game for players while the ["Playzone"](https://pubg.gamepedia.com/The_Playzone) also known as “The Circle” is the area the players must stay in. If existing inside the blue zone, players will take damage every second
-as shown in Figure 4. This forces players closer to each other as the game progresses in order to speed up the game. Therefore, in order to keep survival, players have to wisely work out the hiding strategy and wipe out enemies through the course of the game, but the precondition is that they should stay in the play zone until the competition finishes.
+as shown in following figure. This forces players closer to each other as the game progresses in order to speed up the game. Therefore, in order to keep survival, players have to wisely work out the hiding strategy and wipe out enemies through the course of the game, but the precondition is that they should stay in the play zone until the competition finishes.
 
 ![](img/img7.jpg)
 
-Playzone has a total of 8 circles, with the 8th one being the final circle. Details are shown in Figure 4. The radius of the playzone gradually decreases during the competition, making the playable area of the map smaller and worse. Therefore, it is crucial for players to make shooting 
+Playzone has a total of 8 circles, with the 8th one being the final circle. Details are shown in figure. The radius of the playzone gradually decreases during the competition, making the playable area of the map smaller and worse. Therefore, it is crucial for players to make shooting 
 predictions for multiple play zones before engaging in battles. If players failed to make a correct 
 prediction and chose a wrong area with high risks, they would be trapped into a rough game and even lose the game. In this case, the playzone analysis can give useful advice to players to predict shelters in advance, thus providing comprehensive and **scientific strategies for successful survival and eye-catching ranking in this competition**.
 
@@ -147,7 +147,7 @@ To better understand the meaning behind the distribution of killers’ positions
 
 We use the killers’ positions in x axis and y axis to plot the distribution of killer population density in circle 8 as we believe the killer’s positions highly represent the possible high frequent survival positions, thus the final play zone locations. We used “options(scipen=999)” to print 
 the numeric value in fixed notation before plotting the graph to help us well representing the x and y-axis values. Moreover, multiple modifications for plotting settings have been made to deliver a clear visualization as below. Eventually, we plot the distribution of survival killers in 
-the final playzone in Figure 9, which shows the safest hidden place for players.
+the final playzone in the figure, which shows the safest hidden place for players.
 
 ![](img/img11.jpg)
 ![](img/img12.jpg)
