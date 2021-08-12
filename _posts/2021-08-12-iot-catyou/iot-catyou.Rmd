@@ -5,7 +5,7 @@ description: |
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/
-date: 07-26-2021
+date: 04-26-2021
 output:
   distill::distill_article:
     self_contained: false
@@ -410,6 +410,9 @@ void serialEvent()
 }
 ```
 
+## UI Vedio
+
+![](img/IOT.mp4)
 
 ## Challenges
 
