@@ -102,7 +102,7 @@ DT::datatable(keywords)
 
 You could observe the result from following graph. The bigger word size it is, the more frequent that word appears. Thus, you could know what did the players mention more in the Zhihu, to explain why Genshin Impact is a good game/ why they enjoy this game..
 
-```{r}
+```{r, layout="l-body-outset", preview=TRUE}
 wordcloud(keywords$keywords,
           keywords$num)
 
