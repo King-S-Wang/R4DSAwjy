@@ -85,8 +85,8 @@ DataTable.to_csv("result.csv",encoding="utf_8_sig",index=False)
 Thanks to python, now we could use R to make our data vivid. In my opinion, it's a good idea to visualize the result by WordCloud graph. First, we could take a look at our data by DT package.
 
 ```{r warning=FALSE}
-packages=c('tidytext','widyr','wordcloud','DT','ggwordcloud',
-           'textplot','lubridate','tidyverse','tidygraph','ggraph','igraph')
+packages=c('readr','tidytext','widyr','wordcloud','DT','textplot',
+           'tidygraph','ggraph','tidyverse')
 for (p in packages){
   if(!require(p,character.only=T)){
     install.packages(p)
@@ -108,7 +108,7 @@ wordcloud(keywords$keywords,
 
 ```
 
-## Limitation
+# 4 Limitation
 
 Since this time I do not have much time to do this project, I only collect data from Zhihu Platform. Thus, this result could not represent all players in Genshin Impact. In the future, I could write a Incremental Web Crawler by Python to get more information on each communication platform. So I could draw a more convening result from my observation.
 
