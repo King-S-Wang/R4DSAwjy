@@ -1,0 +1,36 @@
+---
+title: "Adobe Photoshop&Premire"
+description: |
+  I am good at Adobe Photoshop and Adobe Premire.
+author:
+  - name: Jiayi Wang
+    url: https://www.linkedin.com/in/jiayi-wang-smu/
+preview: img/4.jpg
+date: 08-3-2020
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+# Adobe Photoshop
+
+I mainly use Adobe Photoshop to:
+
+* Refine the pictures I took 
+
+* Make creative images
+
+* Create funny pictures to complain lol
+
+Here I put some pictures which I used PS to process.
+
+![](img/p1.jpg)
+![](img/p2.jpg)
+![](img/p3.jpg)
+![](img/p4.jpg)
+![](img/p5.jpg)
+
+# Adobe Premire
+
+[**See my video works here**](https://space.bilibili.com/13444477)
