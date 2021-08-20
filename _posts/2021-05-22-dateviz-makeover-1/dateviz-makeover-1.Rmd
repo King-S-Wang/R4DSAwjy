@@ -5,6 +5,7 @@ description: |
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/
+preview: img/image24.png
 date: 05-30-2021
 output:
   distill::distill_article:
@@ -12,8 +13,6 @@ output:
     toc: true
     
 ---
-
-
 
 
 ```{r setup, include=FALSE}

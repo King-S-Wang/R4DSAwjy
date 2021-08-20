@@ -5,6 +5,7 @@ description: |
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/
+preview: img/image43.png
 date: 06-15-2021
 output:
   distill::distill_article:
