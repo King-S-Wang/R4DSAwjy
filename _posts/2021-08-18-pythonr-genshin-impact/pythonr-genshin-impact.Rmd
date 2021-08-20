@@ -5,6 +5,7 @@ description: |
 author:
   - name: Jiayi Wang
     url: https://www.linkedin.com/in/jiayi-wang-smu/
+preview: data/0.jpg
 date: 08-18-2021
 output:
   distill::distill_article:
@@ -12,11 +13,11 @@ output:
     toc: true
 ---
 
-<a href=data/GENSHIN.ppt>Download PPT for Tencent Interview</a>
-
 # 1 Introduction
 
 Genshin Impact is a popular game. Since its public testing, the number of players and the cash flow within the game has repeatedly hit history records. In order to find what's the factors which players care about most, I download players' answers about ["What are the advantages of 'Genshin Impact'?"](https://www.zhihu.com/question/437377838) from Zhihu in text format. And I will extract data from the text by Python and visualize the result by R.
+
+[my link](data/GENSHIN.ppt)
 
 ![](data/1.png)
 
@@ -104,7 +105,7 @@ DT::datatable(keywords)
 
 You could observe the result from following graph. The bigger word size it is, the more frequent that word appears. Thus, you could know what did the players mention more in the Zhihu, to explain why Genshin Impact is a good game/ why they enjoy this game..
 
-```{r, layout="l-body-outset", preview=TRUE}
+```{r}
 wordcloud(keywords$keywords,
           keywords$num)
 
