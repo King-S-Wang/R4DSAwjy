@@ -119,6 +119,23 @@
     "input_file": {}
   },
   {
+    "path": "posts/2021-08-20-photography-photo-exhibition/",
+    "title": "Photography: Photo exhibition",
+    "description": "I love photography. Here is a part of my works.",
+    "author": [
+      {
+        "name": "Jiayi Wang",
+        "url": "https://www.linkedin.com/in/jiayi-wang-smu/"
+      }
+    ],
+    "date": "2019-09-28",
+    "categories": [],
+    "contents": "\r\n\r\nContents\r\nSingapore\r\nSingapore Zoo\r\nXiamen University\r\n\r\nSingapore\r\n\r\nSingapore Zoo\r\n\r\nXiamen University\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+    "preview": "posts/2021-08-20-photography-photo-exhibition/img/a1.jpg",
+    "last_modified": "2021-08-20T22:33:26+08:00",
+    "input_file": "photography-photo-exhibition.knit.md"
+  },
+  {
     "path": "posts/2021-08-07-matlab-machinerecognitionofmora/",
     "title": "MATLAB-Machine recognition of Mora[Chinese]",
     "description": "Using Matlab to recognize the input of Mora pictures and output the results.",

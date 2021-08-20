@@ -1,0 +1,44 @@
+---
+title: "Photography: Photo exhibition"
+description: |
+  I love photography. Here is a part of my works.
+author:
+  - name: Jiayi Wang
+    url: https://www.linkedin.com/in/jiayi-wang-smu/
+preview: img/a1.jpg
+date: 09-28-2019
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+# Singapore
+![](img/a90.jpg)
+![](img/a1.jpg)
+![](img/a2.jpg)
+![](img/a3.jpg)
+
+# Singapore Zoo
+![](img/b1.jpg)
+![](img/b2.jpg)
+![](img/b3.jpg)
+![](img/b4.jpg)
+![](img/b5.jpg)
+![](img/b6.jpg)
+
+# Xiamen University
+![](img/a30.jpg)
+![](img/a10.jpg)
+![](img/a11.jpg)
+![](img/a15.jpg)
+![](img/a16.jpg)
+![](img/a17.jpg)
+
+
+![](img/a31.jpg)
+![](img/a32.jpg)
+
+![](img/a95.jpg)
+![](img/a100.jpg)
+
