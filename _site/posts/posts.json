@@ -119,23 +119,6 @@
     "input_file": "r-pubgstrategiesanalysis.knit.md"
   },
   {
-    "path": "posts/2021-08-20-adobe-photoshoppremire/",
-    "title": "Adobe Photoshop&Premire",
-    "description": "I am good at Adobe Photoshop and Adobe Premire.",
-    "author": [
-      {
-        "name": "Jiayi Wang",
-        "url": "https://www.linkedin.com/in/jiayi-wang-smu/"
-      }
-    ],
-    "date": "2020-08-03",
-    "categories": [],
-    "contents": "\r\nAdobe Photoshop\r\nI mainly use Adobe Photoshop to:\r\nRefine the pictures I took\r\nMake creative images\r\nCreate funny pictures to complain lol\r\nHere I put some pictures which I used PS to process.\r\n\r\nAdobe Premire\r\nSee my video works here\r\n\r\n\r\n\r\n",
-    "preview": "posts/2021-08-20-adobe-photoshoppremire/img/4.jpg",
-    "last_modified": "2021-08-20T23:11:49+08:00",
-    "input_file": "adobe-photoshoppremire.knit.md"
-  },
-  {
     "path": "posts/2021-08-20-photography-photo-exhibition/",
     "title": "Photography: Photo exhibition",
     "description": "I love photography. Here is a part of my works.",
@@ -168,6 +151,23 @@
     "preview": {},
     "last_modified": "2021-08-20T22:39:39+08:00",
     "input_file": "matlab-machinerecognitionofmora.knit.md"
+  },
+  {
+    "path": "posts/2021-08-20-adobe-photoshoppremire/",
+    "title": "Adobe Photoshop&Premire",
+    "description": "I am good at Adobe Photoshop and Adobe Premire.",
+    "author": [
+      {
+        "name": "Jiayi Wang",
+        "url": "https://www.linkedin.com/in/jiayi-wang-smu/"
+      }
+    ],
+    "date": "2018-08-03",
+    "categories": [],
+    "contents": "\r\nAdobe Photoshop\r\nI mainly use Adobe Photoshop to:\r\nRefine the pictures I took\r\nMake creative images\r\nCreate funny pictures to complain lol\r\nHere I put some pictures which I used PS to process.\r\n\r\nAdobe Premire\r\nSee my video works here\r\n\r\n\r\n\r\n",
+    "preview": "posts/2021-08-20-adobe-photoshoppremire/img/4.jpg",
+    "last_modified": "2021-08-20T23:54:34+08:00",
+    "input_file": "adobe-photoshoppremire.knit.md"
   },
   {
     "path": "posts/2021-08-10-matlab-machinerecognitionofmoraeng/",
