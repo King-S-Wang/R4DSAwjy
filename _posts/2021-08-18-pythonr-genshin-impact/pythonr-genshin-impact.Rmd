@@ -12,6 +12,8 @@ output:
     toc: true
 ---
 
+<a href=data/GENSHIN.ppt>Download PPT for Tencent Interview</a>
+
 # 1 Introduction
 
 Genshin Impact is a popular game. Since its public testing, the number of players and the cash flow within the game has repeatedly hit history records. In order to find what's the factors which players care about most, I download players' answers about ["What are the advantages of 'Genshin Impact'?"](https://www.zhihu.com/question/437377838) from Zhihu in text format. And I will extract data from the text by Python and visualize the result by R.
